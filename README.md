@@ -4,7 +4,15 @@ Structural Complexity Reduction for NP-Complete ProblemsReasoningKit is a modula
 🚀 Key FeaturesSemantic 
 DSL Layer: Define constraints in human-readable terms (Exactly-One, At-Most-One) to preserve problem "shape."Symmetry Breaking: Automatically identify and fold $N!$ redundant search permutations.Topological Filtering: Short-circuit unsatisfiable problems via graph-theoretic Clique detection.CDCL Logic Core: High-performance search utilizing Two-Watched Literals (2WL), VSIDS heuristics, and Luby Restarts.
 
-📄 Documentation: The White PaperFor a deep dive into the mathematics of Structural Sparsity ($s$) and our research into the $P$ vs $NP$ problem, please refer to our white paper:👉 [Link to Your White Paper PDF]💻 Quick StartInstallationBashgit clone https://github.com/your-username/ReasoningKit.git
+📄 Documentation: 
+The White PaperFor a deep dive into the mathematics of Structural Sparsity ($s$) and our research into the $P$ vs $NP$ problem, please refer to our white paper:👉 [Link to Your White Paper PDF]💻 Quick StartInstallationBashgit clone https://github.com/your-username/ReasoningKit.git
+<pre>
+    git clone [https://github.com/your-username/ReasoningKit.git](https://github.com/your-username/ReasoningKit.git)
+cd ReasoningKit
+python3 -m venv venv
+source venv/bin/activate
+pip install -r requirements.txt
+</pre>
 cd ReasoningKit
 python3 -m venv venv
 source venv/bin/activate
