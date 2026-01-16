@@ -6,8 +6,8 @@ DSL Layer: Define constraints in human-readable terms (Exactly-One, At-Most-One)
 
 📄 Documentation: 
 The White PaperFor a deep dive into the mathematics of Structural Sparsity ($s$) and our research into the $P$ vs $NP$ problem, please refer to our white paper:👉 [Link to Your White Paper PDF]💻 Quick StartInstallationBashgit clone https://github.com/your-username/ReasoningKit.git
-<pre>
-    git clone [https://github.com/your-username/ReasoningKit.git](https://github.com/your-username/ReasoningKit.git)
+<pre>bash
+git clone [https://github.com/your-username/ReasoningKit.git](https://github.com/your-username/ReasoningKit.git)
 cd ReasoningKit
 python3 -m venv venv
 source venv/bin/activate
