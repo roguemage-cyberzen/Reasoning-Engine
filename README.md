@@ -27,8 +27,15 @@ for i in range(10): # 10 pigeons
 # 3. Solve with Structural Reduction
 solver = ReasoningCore(dsl.formula, dsl.var_count)
 result = solver.solve()
-```
 print("Satisfiable" if result else "Unsatisfiable")
-📊 BenchmarksReasoningKit demonstrates near-linear performance on problems that typically trigger exponential growth in standard solvers:InstanceStandard SolverReasoningKitReduction Factor (s)PHP-121,240s0.05s$\approx 148$ bitsSudoku 9x95.0s0.02s$\approx 648$ bitsK6 Coloring10.0s< 0.001s30 (Instant Proof)
-🤝 ContributingWe are actively researching ways to maximize the Structural Factor ($s$) for a wider variety of $NP$-Complete problems. If you have insights into topological invariants or symmetry detection algorithms, please open an issue or submit a pull request.
+```
+📊 Benchmarks
+ReasoningKit demonstrates near-linear performance on problems that typically trigger exponential growth in standard solvers:
+Instance,Standard Solver,ReasoningKit,Reduction Factor (s)
+PHP-12,"1,240s",0.05s,≈148 bits
+Sudoku 9x9,5.0s,0.02s,≈648 bits
+K6 Coloring,10.0s,< 0.001s,30 (Instant Proof)
+
+🤝 Contributing
+We are actively researching ways to maximize the Structural Factor ($s$) for a wider variety of $NP$-Complete problems. If you have insights into topological invariants or symmetry detection algorithms, please open an issue or submit a pull request.
 Authors: Mike Hume & Gemini
