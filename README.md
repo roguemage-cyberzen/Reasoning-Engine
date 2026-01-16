@@ -1,7 +1,9 @@
 🧠 ReasoningKit v1.0
+
 Structural Complexity Reduction for NP-Complete ProblemsReasoningKit is a modular Python library designed to bypass the "Exponential Wall" of computational complexity. Unlike traditional SAT solvers that rely on raw search speed, ReasoningKit uses a 4-Step Reduction Protocol to extract structural information from a problem, reducing complexity from $O(2^n)$ to $O(2^{n-s})$.
 
 🚀 Key FeaturesSemantic 
+
 DSL Layer: Define constraints in human-readable terms (Exactly-One, At-Most-One) to preserve problem "shape."Symmetry Breaking: Automatically identify and fold $N!$ redundant search permutations.Topological Filtering: Short-circuit unsatisfiable problems via graph-theoretic Clique detection.CDCL Logic Core: High-performance search utilizing Two-Watched Literals (2WL), VSIDS heuristics, and Luby Restarts.
 
 📄 Documentation: 
