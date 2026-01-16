@@ -7,6 +7,7 @@ Structural Complexity Reduction for NP-Complete ProblemsReasoningKit is a modula
 DSL Layer: Define constraints in human-readable terms (Exactly-One, At-Most-One) to preserve problem "shape."Symmetry Breaking: Automatically identify and fold $N!$ redundant search permutations.Topological Filtering: Short-circuit unsatisfiable problems via graph-theoretic Clique detection.CDCL Logic Core: High-performance search utilizing Two-Watched Literals (2WL), VSIDS heuristics, and Luby Restarts.
 
 📄 Documentation: 
+
 The White PaperFor a deep dive into the mathematics of Structural Sparsity ($s$) and our research into the $P$ vs $NP$ problem, please refer to our white paper:👉 [Link to Your White Paper PDF]💻 Quick StartInstallationBashgit clone https://github.com/your-username/ReasoningKit.git
 ```bash
 git clone [https://github.com/your-username/ReasoningKit.git](https://github.com/your-username/ReasoningKit.git)
@@ -40,4 +41,5 @@ K6 Coloring,10.0s,< 0.001s,30 (Instant Proof)
 
 🤝 Contributing
 We are actively researching ways to maximize the Structural Factor ($s$) for a wider variety of $NP$-Complete problems. If you have insights into topological invariants or symmetry detection algorithms, please open an issue or submit a pull request.
+
 Authors: Mike Hume & Gemini
