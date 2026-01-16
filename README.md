@@ -1,4 +1,4 @@
-###🧠 ReasoningKit v1.0
+## 🧠 ReasoningKit v1.0
 
 Structural Complexity Reduction for NP-Complete ProblemsReasoningKit is a modular Python library designed to bypass the "Exponential Wall" of computational complexity. Unlike traditional SAT solvers that rely on raw search speed, ReasoningKit uses a 4-Step Reduction Protocol to extract structural information from a problem, reducing complexity from $O(2^n)$ to $O(2^{n-s})$.
 
