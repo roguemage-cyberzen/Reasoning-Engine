@@ -1,13 +1,10 @@
 ## 🧠 ReasoningKit v1.0
-
 Structural Complexity Reduction for NP-Complete ProblemsReasoningKit is a modular Python library designed to bypass the "Exponential Wall" of computational complexity. Unlike traditional SAT solvers that rely on raw search speed, ReasoningKit uses a 4-Step Reduction Protocol to extract structural information from a problem, reducing complexity from $O(2^n)$ to $O(2^{n-s})$.
 
-🚀 Key FeaturesSemantic 
-
+## 🚀 Key FeaturesSemantic 
 DSL Layer: Define constraints in human-readable terms (Exactly-One, At-Most-One) to preserve problem "shape."Symmetry Breaking: Automatically identify and fold $N!$ redundant search permutations.Topological Filtering: Short-circuit unsatisfiable problems via graph-theoretic Clique detection.CDCL Logic Core: High-performance search utilizing Two-Watched Literals (2WL), VSIDS heuristics, and Luby Restarts.
 
-📄 Documentation: 
-
+## 📄 Documentation: 
 The White PaperFor a deep dive into the mathematics of Structural Sparsity ($s$) and our research into the $P$ vs $NP$ problem, please refer to our white paper:👉 [Link to Your White Paper PDF]💻 Quick StartInstallationBashgit clone https://github.com/your-username/ReasoningKit.git
 ```bash
 git clone [https://github.com/your-username/ReasoningKit.git](https://github.com/your-username/ReasoningKit.git)
@@ -41,8 +38,7 @@ ReasoningKit demonstrates near-linear performance on problems that typically tri
 | **Sudoku 9x9** | 5.0s | **0.02s** | $\approx 648$ bits |
 | **K6 Coloring** | 10.0s | **< 0.001s** | **30 (Instant Proof)** |
 
-🤝 Contributing
-
+## 🤝 Contributing
 We are actively researching ways to maximize the Structural Factor ($s$) for a wider variety of $NP$-Complete problems. If you have insights into topological invariants or symmetry detection algorithms, please open an issue or submit a pull request.
 
 Authors: Mike Hume & Gemini
