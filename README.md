@@ -1,8 +1,18 @@
-## 🧠 ReasoningKit v1.0
-Structural Complexity Reduction for NP-Complete ProblemsReasoningKit is a modular Python library designed to bypass the "Exponential Wall" of computational complexity. Unlike traditional SAT solvers that rely on raw search speed, ReasoningKit uses a 4-Step Reduction Protocol to extract structural information from a problem, reducing complexity from $O(2^n)$ to $O(2^{n-s})$.
+## 🧠 ReasoningKit v1.0: Structural Complexity Reduction
+ReasoningKit is a framework designed to navigate the P vs NP Boundary by collapsing the "Exponential Wall" of NP-completeness. Unlike traditional solvers that rely on stochastic search, ReasoningKit utilizes a Semantic Compiler to identify and exploit Structural Sparsity ($s$) within complex problem sets.
 
-## 🚀 Key FeaturesSemantic 
-DSL Layer: Define constraints in human-readable terms (Exactly-One, At-Most-One) to preserve problem "shape."Symmetry Breaking: Automatically identify and fold $N!$ redundant search permutations.Topological Filtering: Short-circuit unsatisfiable problems via graph-theoretic Clique detection.CDCL Logic Core: High-performance search utilizing Two-Watched Literals (2WL), VSIDS heuristics, and Luby Restarts.
+## 🚀 The Core Philosophy: Structure as Information 
+Traditional SAT solvers suffer from Information Entropy; they discard the relational context of a problem to flatten it into binary bits. ReasoningKit bridges this "Semantic Gap" by treating ZFC Set Theory as the operating system for logic.By preserving structural metadata, the engine reduces search complexity from the classical $O(2^n)$ to:
+
+$T(n) = O(2^{n-s})$
+
+Where $s$ (The Structural Factor) is the sum of variables neutralized through symmetry folding and topological short-circuiting ($s = sym + topo$).
+
+## 🛠️ Key Features
+* Semantic Compiler (DSL Layer): Compiles high-level First-Order Logic (FOL) and Higher-Order Logic (HOL) constraints into metadata-rich CNF without losing "Structural Intent".
+* Hybrid Symmetry Sifter: Combines Static Symmetry-Breaking Predicates (SBPs) with On-the-fly Symmetry Discovery to collapse $N!$ redundant permutations into a single "Canonical Path".
+* Topological Folder: Employs polynomial-time graph-theoretic checks (e.g., Maximum Clique Identification) to prove unsatisfiability before the search begins.
+* CDCL Logic Core: A high-performance core optimized for Analytic Search, utilizing VSIDS Branching, Luby Restarts, and LBD-based Knowledge Management.
 
 ## 📄 Documentation: 
 The White PaperFor a deep dive into the mathematics of Structural Sparsity ($s$) and our research into the $P$ vs $NP$ problem, please refer to our white paper:👉 [Link to Your White Paper PDF]💻 Quick StartInstallationBashgit clone https://github.com/your-username/ReasoningKit.git
