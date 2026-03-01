@@ -33,3 +33,16 @@ This script demonstrates how to defeat factorial growth by "folding" the search 
 * Mapping: Maps $N \times M$ variables.
 * Symmetry Breaking: Uses a Canonical Injection (e.g., dsl.formula.append([dsl.get_var("p", 0, "h", 0)])) to force the first pigeon into the first hole.
 * Impact: Collapses the search tree, as every other starting position is mathematically identical.
+
+#### Implementation B: Sudoku $9 \times 9$ (Deduction Cascades)
+The Sudoku solver treats the grid as a 3D Bit-Cube to trigger ripple-effect logic.
+* 3D Mapping: var(r, c, v) represents Row, Column, and Value.
+* Unit Injection: Pre-filled numbers are injected as "Unit Clauses".
+* Cascade: The _unit_propagate function triggers a cascade across the 729 variables, solving the majority of the puzzle before the first branching decision.
+
+#### Implementation C: $K_6$ Coloring (Topological Proof)
+This highlights the power of the Semantic Layer to bypass search entirely.
+* Graph Scan: The SemanticAnalyzer builds a dependency graph of the 6 nodes and detects a complete connectivity.
+* The Shortcut: Compares clique_size (6) to available colors (5).
+* Proof: Because $6 > 5$, the engine returns an Instant UNSAT, proving impossibility without ever starting the search core.
+
