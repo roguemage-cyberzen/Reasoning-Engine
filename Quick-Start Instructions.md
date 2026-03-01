@@ -13,4 +13,4 @@ python3 -m venv venv
 source venv/bin/activate
 ```
 
-Library Deployment: Save the library code as ReasoningKit.py and your implementation scripts (e.g., php_experiment.py) in the same directory. No external heavy-weight dependencies (like PySAT) are required, as this is a "from-scratch" implementation.
+3. Library Deployment: Save the library code as ReasoningKit.py and your implementation scripts (e.g., php_experiment.py) in the same directory. No external heavy-weight dependencies (like PySAT) are required, as this is a "from-scratch" implementation.
