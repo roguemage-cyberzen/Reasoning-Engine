@@ -30,7 +30,11 @@ Instance,Standard Solver,ReasoningKit,Structural Factor (s)
 
 
 ## 📄 Documentation: 
-The White PaperFor a deep dive into the mathematics of Structural Sparsity ($s$) and our research into the $P$ vs $NP$ problem, please refer to our white paper:👉 [Link to Your White Paper PDF]💻 Quick StartInstallationBashgit clone https://github.com/your-username/ReasoningKit.git
+The White Paper
+For a deep dive into the mathematics of Structural Sparsity ($s$) and our research into the $P$ vs $NP$ problem, please refer to our white paper:👉 [https://github.com/roguemage-cyberzen/Reasoning-Engine/blob/main/The%20Reasoning%20Engine%20A%20Framework%20for%20Structural%20Complexity%20Reduction.pdf]
+
+
+
 ```bash
 git clone [https://github.com/your-username/ReasoningKit.git](https://github.com/your-username/ReasoningKit.git)
 cd ReasoningKit
