@@ -31,7 +31,7 @@ Instance,Standard Solver,ReasoningKit,Structural Factor (s)
 
 ## 📄 Documentation: 
 The White Paper
-For a deep dive into the mathematics of Structural Sparsity ($s$) and our research into the $P$ vs $NP$ problem, please refer to our white paper:👉 [https://github.com/roguemage-cyberzen/Reasoning-Engine/blob/main/The%20Reasoning%20Engine%20A%20Framework%20for%20Structural%20Complexity%20Reduction.pdf]
+For a deep dive into the mathematics of Structural Sparsity ($s$) and our research into the $P$ vs $NP$ problem, please refer to our [white paper (PDF)](./The%20Reasoning%20Engine%20A%20Framework%20for%20Structural%20Complexity%20Reduction.pdf)
 
 
 
