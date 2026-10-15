@@ -14,7 +14,10 @@ Let the set of cities be a finite set $V$ with cardinality $\vert{}V\vert{} = n 
                                    |∀c ∃!t τ(c, t) ∧ ∀t ∃!c τ(c, t)|         2WL Watch Lists
 
 Cartesian Product & State Space:
-By the Axiom of Pairing and Axiom of Union, we construct the Cartesian product:$$V \times T = \{ (c, t) : c \in V \land t \in T \}$$
+By the Axiom of Pairing and Axiom of Union, we construct the Cartesian product:
+
+$$V \times T = \{ (c, t) : c \in V \land t \in T \}$$
+
 A candidate tour $\tau$ is a relation $\tau \subseteq V \times T$.
 The Bijection Axiom (Hamiltonian Invariant):By the Axiom of Specification, the admissible set of cyclic tours $\mathcal{T}_{\text{valid}}$ requires that $\tau$ is a bijection:
 $$\tau : V \longleftrightarrow T$$
