@@ -28,7 +28,11 @@ In first-order logic, this decomposes into two orthogonal uniqueness requirement
 
 * Injectivity & Surjectivity (Space Uniqueness):
 
-$$\forall t \in T, \, \exists ! c \in V \text{ such that } (c, t) \in \tau$$Metric Grounding & Sub-tour Elimination:Given a metric space $(V, d)$ where $d: V \times V \to \mathbb{R}_{\ge 0}$, an edge transition relation $E_W \subseteq V \times V$ parameterized by an edge-weight bottleneck $W$ is defined as:
+$$\forall t \in T, \, \exists ! c \in V \text{ such that } (c, t) \in \tau
+
+* Metric Grounding & Sub-tour Elimination:
+
+Given a metric space $(V, d)$ where $d: V \times V \to \mathbb{R}_{\ge 0}$, an edge transition relation $E_W \subseteq V \times V$ parameterized by an edge-weight bottleneck $W$ is defined as:
 
 $$E_W = \{ (u, v) \in V \times V : u \neq v \land d(u, v) \le W \}
 
