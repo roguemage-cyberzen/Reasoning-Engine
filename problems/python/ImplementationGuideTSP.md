@@ -66,3 +66,5 @@ $$E_W = \{ (u, v) \in V \times V : u \neq v \land d(u, v) \le W \}$$
 Any tour $\tau$ is bounded by $W$ if and only if consecutive sequence images satisfy the edge relation:
 
 $$\forall t \in T, \, \big( \tau^{-1}(t), \, \tau^{-1}((t + 1) \bmod n) \big) \in E_W$$
+
+## 2. The 3-Tier Layer Cake Architecture
