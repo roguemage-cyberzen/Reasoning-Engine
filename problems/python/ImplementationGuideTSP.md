@@ -91,7 +91,7 @@ flowchart TD
 
 ## 3. Step-by-Step Implementation
 
-Step 1: Conceptual Objects and Canonical Mapping
+### Step 1: Conceptual Objects and Canonical Mapping
 
 Every tuple $(c, t) \in V \times T$ maps injectively to a propositional literal $X_{c, t} \in \mathbb{N}^+$. The class StructuralDSL maintains this bijection using a hash table, ensuring referential integrity across constraints.
 
