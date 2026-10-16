@@ -68,3 +68,23 @@ Any tour $\tau$ is bounded by $W$ if and only if consecutive sequence images sat
 $$\forall t \in T, \, \big( \tau^{-1}(t), \, \tau^{-1}((t + 1) \bmod n) \big) \in E_W$$
 
 ## 2. The 3-Tier Layer Cake Architecture
+```mermaid
+flowchart TD
+    subgraph L1["1. Modeling Layer (DSL)"]
+        direction TB
+        L1_text["• Maps ZFC Cartesian tuples (c, t) to Boolean IDs<br/>• Generates Exact-1 / At-Most-1 Cardinality Constraints"]
+    end
+
+    subgraph L2["2. Structural Layer (Analyzer & Symmetry Breaker)"]
+        direction TB
+        L2_text["• Orbit Collapsing: Breaks Cyclic C_n and Dihedral D_n<br/>• Distance Cut-off: Projects Forbidden Edges to CNF"]
+    end
+
+    subgraph L3["3. Execution Layer (ReasoningCore)"]
+        direction TB
+        L3_text["• Two-Watched Literals (2WL) Unit Propagation<br/>• 1UIP Conflict Analysis & Non-Chronological Backjumping<br/>• Dynamic VSIDS Heuristics"]
+    end
+
+    L1 --> L2
+    L2 --> L3
+```
