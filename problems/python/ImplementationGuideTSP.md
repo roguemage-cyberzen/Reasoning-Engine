@@ -14,7 +14,7 @@ Let the set of cities be a finite set $V$ with cardinality $\vert{}V\vert{} = n 
                         ||           |∀c ∃!t τ(c, t) ∧ ∀t ∃!c τ(c, t)|         | 2WL Watch Lists|
 ```mermaid
 stateDiagram-v2
-  [*] --> ZFC-Domain
+  [*] --> ZFC_Domain
 ```
 Cartesian Product & State Space:
 
