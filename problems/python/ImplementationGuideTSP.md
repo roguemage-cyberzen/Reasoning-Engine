@@ -12,7 +12,13 @@ Let the set of cities be a finite set $V$ with cardinality $\vert{}V\vert{} = n 
 | V (Cities)    | |──(Cartesian)──►| | τ ⊆ V × T               | |──(Encoder)──►| | X_{c,t} ∈ {0, 1}|
 |T (Time-Steps) |  |  Product      | |Bijective Function                           |Canonical Literals|
                         ||           |∀c ∃!t τ(c, t) ∧ ∀t ∃!c τ(c, t)|         | 2WL Watch Lists|
-
+```mermaid
+graph TD;
+    A-->B;
+    A-->C;
+    B-->D;
+    C-->D;
+```
 Cartesian Product & State Space:
 
 By the Axiom of Pairing and Axiom of Union, we construct the Cartesian product:
