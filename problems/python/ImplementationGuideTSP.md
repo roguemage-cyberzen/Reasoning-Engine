@@ -131,3 +131,29 @@ class StructuralDSL:
         self.add_at_least_one(variables)
         self.add_at_most_one(variables)
 ```
+### Step 2: Enforcing Structural Invariants
+
+The bijection $\tau : V \longleftrightarrow T$ is asserted by generating $2n$ cardinality gates.
+```python
+def apply_hamiltonian_invariants(dsl, n):
+    # Invariant A: Space Uniqueness (Every time-slot t has exactly one city)
+    # \forall t \in T, \exists! c \in V: (c, t) \in \tau
+    for t in range(n):
+        slot_occupants = [dsl.get_var("city", c, "pos", t) for c in range(n)]
+        dsl.add_exactly_one(slot_occupants)
+
+    # Invariant B: Time Uniqueness (Every city c appears at exactly one time-slot)
+    # \forall c \in V, \exists! t \in T: (c, t) \in \tau
+    for c in range(n):
+        city_schedule = [dsl.get_var("city", c, "pos", t) for t in range(n)]
+        dsl.add_exactly_one(city_schedule)
+```
+### Step 3: Search Space Pruning via Symmetry Breaking
+
+A raw TSP on $n$ vertices has an unpruned search space of $n!$ configurations. However, any valid Hamiltonian cycle exhibits automorphism under the Dihedral Group $D_n$ (order $2n$):
+*  Cyclic Shift Symmetry ($C_n$): A cyclic shift of positions does not alter path weight:
+$$\tau' = (c_0, c_1, \dots, c_{n-1}) \cong (c_k, c_{k+1}, \dots, c_{k-1})$$
+*  Reflectional/Reversal Symmetry ($\mathbb{Z}_2$): Traversing clockwise vs. counter-clockwise:
+$$\tau_{\text{rev}} = (c_0, c_{n-1}, \dots, c_1)$$
+
+We prune the search space by a factor of $2n$ before the solver makes its first decision:
