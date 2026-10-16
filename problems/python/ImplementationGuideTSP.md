@@ -15,9 +15,7 @@ Let the set of cities be a finite set $V$ with cardinality $\vert{}V\vert{} = n 
 ```mermaid
 graph TD;
     A-->B;
-    A-->C;
-    B-->D;
-    C-->D;
+    B-->C;
 ```
 Cartesian Product & State Space:
 
