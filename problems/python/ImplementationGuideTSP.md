@@ -34,12 +34,14 @@ $$\forall c \in V, \, \exists ! t \in T \text{ such that } (c, t) \in \tau $$
 
 * Injectivity & Surjectivity (Space Uniqueness):
 
-$$\forall t \in T, \, \exists ! c \in V \text{ such that } (c, t) \in \tau
+$$\forall t \in T, \, \exists ! c \in V \text{ such that } (c, t) \in \tau$$
 
 * Metric Grounding & Sub-tour Elimination:
 
 Given a metric space $(V, d)$ where $d: V \times V \to \mathbb{R}_{\ge 0}$, an edge transition relation $E_W \subseteq V \times V$ parameterized by an edge-weight bottleneck $W$ is defined as:
 
-$$E_W = \{ (u, v) \in V \times V : u \neq v \land d(u, v) \le W \}
+$$E_W = \{ (u, v) \in V \times V : u \neq v \land d(u, v) \le W \}$$
 
-$$Any tour $\tau$ is bounded by $W$ if and only if consecutive sequence images satisfy the edge relation:$$\forall t \in T, \, \big( \tau^{-1}(t), \, \tau^{-1}((t + 1) \bmod n) \big) \in E_W$$
+$$Any tour $\tau$ is bounded by $W$ if and only if consecutive sequence images satisfy the edge relation:
+
+$$\forall t \in T, \, \big( \tau^{-1}(t), \, \tau^{-1}((t + 1) \bmod n) \big) \in E_W$$
