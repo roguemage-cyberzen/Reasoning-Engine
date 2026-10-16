@@ -13,8 +13,14 @@ Let the set of cities be a finite set $V$ with cardinality $\vert{}V\vert{} = n 
 |T (Time-Steps) |  |  Product      | |Bijective Function                           |Canonical Literals|
                         ||           |∀c ∃!t τ(c, t) ∧ ∀t ∃!c τ(c, t)|         | 2WL Watch Lists|
 ```mermaid
-stateDiagram-v2
-  [*] --> ZFC_Domain
+    stateDiagram-v2
+        State1: ZFC Domain
+        note right of State1
+            Important information! You can write
+            notes.
+        end note
+        State1 --> State2
+        note left of State2 : This is the note to the left.
 ```
 Cartesian Product & State Space:
 
