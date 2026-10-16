@@ -33,7 +33,7 @@ flowchart LR
     ZFC -->|Cartesian Product| FOP
     FOP -->|Encoder| CNF
 ```
-Cartesian Product & State Space:
+1. Cartesian Product & State Space:
 
 By the Axiom of Pairing and Axiom of Union, we construct the Cartesian product:
 
@@ -41,7 +41,7 @@ $$V \times T = \{ (c, t) : c \in V \land t \in T \}$$
 
 A candidate tour $\tau$ is a relation $\tau \subseteq V \times T$.
 
-The Bijection Axiom (Hamiltonian Invariant):
+2. The Bijection Axiom (Hamiltonian Invariant):
 
 By the Axiom of Specification, the admissible set of cyclic tours $\mathcal{T}_{\text{valid}}$ requires that $\tau$ is a bijection:
 
@@ -57,7 +57,7 @@ $$\forall c \in V, \, \exists ! t \in T \text{ such that } (c, t) \in \tau $$
 
 $$\forall t \in T, \, \exists ! c \in V \text{ such that } (c, t) \in \tau$$
 
-* Metric Grounding & Sub-tour Elimination:
+3. Metric Grounding & Sub-tour Elimination:
 
 Given a metric space $(V, d)$ where $d: V \times V \to \mathbb{R}_{\ge 0}$, an edge transition relation $E_W \subseteq V \times V$ parameterized by an edge-weight bottleneck $W$ is defined as:
 
