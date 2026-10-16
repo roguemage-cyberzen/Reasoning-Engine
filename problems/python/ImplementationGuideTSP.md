@@ -19,7 +19,7 @@ Let the set of cities be a finite set $V$ with cardinality $\vert{}V\vert{} = n 
             V (Cities)
             T (Time-Steps)
         end note
-        State1 --> State2
+        State1 --> First-Order Predicates 
         note left of State2 : This is the note to the left.
         State2 --> State3
         note left of State3 : This is the note to the left.
