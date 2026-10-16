@@ -17,7 +17,7 @@ Let the set of cities be a finite set $V$ with cardinality $\vert{}V\vert{} = n 
         State1: ZFC Domain
         note right of State1
             V (Cities)
-            notes.
+            T (Time-Steps)
         end note
         State1 --> State2
         note left of State2 : This is the note to the left.
