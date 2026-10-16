@@ -13,16 +13,14 @@ Let the set of cities be a finite set $V$ with cardinality $\vert{}V\vert{} = n 
 |T (Time-Steps) |  |  Product      | |Bijective Function                           |Canonical Literals|
                         ||           |∀c ∃!t τ(c, t) ∧ ∀t ∃!c τ(c, t)|         | 2WL Watch Lists|
 ```mermaid
-    stateDiagram-v2
-        State1: ZFC Domain
-        note right of State1
-            V (Cities)
-            T (Time-Steps)
-        end note
-        ZFC Domain --> First-Order Predicates  
-        note left of State2 : This is the note to the left.
-        State2 --> State3
-        note left of State3 : This is the note to the left.
+treemap-beta
+"Section 1"
+    "Leaf 1.1": 12
+    "Section 1.2"
+      "Leaf 1.2.1": 12
+"Section 2"
+    "Leaf 2.1": 20
+    "Leaf 2.2": 25
 ```
 Cartesian Product & State Space:
 
