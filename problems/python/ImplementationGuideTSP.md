@@ -382,6 +382,11 @@ if __name__ == "__main__":
 ```
 ## 5. Architectural Comparison: Branch-and-Bound vs. Structural CDCL
 
+|  Dimension |  Classical Branch-and-Bound (Integer Linear Programming) | Reasoning Engine (Structural Deduction / CDCL) |
+| :---         |     :---:      |          ---: |
+| Search Paradigm   | Relaxation-driven; branches on continuous bounds ($\mathbb{R}^n$) and adds cutting planes.      | Resolution-driven; operates directly on discrete combinatorial space.   |
+| git diff     | git diff       | git diff      |
+
 |  Dimension  |    Classical Branch-and-Bound (Integer Linear Programming)  |    Reasoning Engine (Structural Deduction / CDCL)  | 
 | ____________| ____________________________________________________________| ___________________________________________________| 
 
