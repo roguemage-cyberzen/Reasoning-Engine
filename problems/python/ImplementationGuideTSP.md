@@ -28,6 +28,7 @@ By the Axiom of Specification, the admissible set of cyclic tours $\mathcal{T}_{
 $$\tau : V \longleftrightarrow T$$
 
 In first-order logic, this decomposes into two orthogonal uniqueness requirements:
+
 Totality & Well-Definedness (Time Uniqueness):
 
 $$\forall c \in V, \, \exists ! t \in T \text{ such that } (c, t) \in \tau $$
@@ -42,6 +43,6 @@ Given a metric space $(V, d)$ where $d: V \times V \to \mathbb{R}_{\ge 0}$, an e
 
 $$E_W = \{ (u, v) \in V \times V : u \neq v \land d(u, v) \le W \}$$
 
-$$Any tour $\tau$ is bounded by $W$ if and only if consecutive sequence images satisfy the edge relation:
+Any tour $\tau$ is bounded by $W$ if and only if consecutive sequence images satisfy the edge relation:
 
 $$\forall t \in T, \, \big( \tau^{-1}(t), \, \tau^{-1}((t + 1) \bmod n) \big) \in E_W$$
