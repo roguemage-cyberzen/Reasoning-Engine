@@ -13,9 +13,8 @@ Let the set of cities be a finite set $V$ with cardinality $\vert{}V\vert{} = n 
 |T (Time-Steps) |  |  Product      | |Bijective Function                           |Canonical Literals|
                         ||           |∀c ∃!t τ(c, t) ∧ ∀t ∃!c τ(c, t)|         | 2WL Watch Lists|
 ```mermaid
-graph TD;
-    ZFC_Domain-->First-Order_Predicates;
-    First-Order_Predicates-->Propositional_CNF;
+stateDiagram-v2
+  [*] --> Draft
 ```
 Cartesian Product & State Space:
 
