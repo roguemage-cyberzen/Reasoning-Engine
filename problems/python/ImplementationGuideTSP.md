@@ -157,3 +157,26 @@ $$\tau' = (c_0, c_1, \dots, c_{n-1}) \cong (c_k, c_{k+1}, \dots, c_{k-1})$$
 $$\tau_{\text{rev}} = (c_0, c_{n-1}, \dots, c_1)$$
 
 We prune the search space by a factor of $2n$ before the solver makes its first decision:
+```python
+def apply_symmetry_breaking(dsl, n):
+    """
+    1. Cyclic Orbit Collapsing:
+       Fix City 0 at Position 0. This forces the cycle to anchor at origin,
+       collapsing the C_n symmetry group by a factor of n.
+    """
+    c0_p0 = dsl.get_var("city", 0, "pos", 0)
+    dsl.formula.append([c0_p0]) # Injected as a Unit Fact
+
+    """
+    2. Reflection Orbit Collapsing:
+       Force the city at Position 1 to have a strictly smaller index
+       than the city at Position n-1. Collapses the Z_2 reflection group.
+       \forall c_a > c_b: \neg (City_{c_a, 1} \land City_{c_b, n-1})
+    """
+    for ca in range(n):
+        for cb in range(ca + 1, n):
+            # Prohibit ca at position 1 if cb appears at position n-1
+            var_ca_p1 = dsl.get_var("city", ca, "pos", 1)
+            var_cb_pend = dsl.get_var("city", cb, "pos", n - 1)
+            dsl.formula.append([-var_ca_p1, -var_cb_pend])
+```
