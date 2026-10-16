@@ -14,7 +14,7 @@ Let the set of cities be a finite set $V$ with cardinality $\vert{}V\vert{} = n 
                         ||           |∀c ∃!t τ(c, t) ∧ ∀t ∃!c τ(c, t)|         | 2WL Watch Lists|
 ```mermaid
 graph TD;
-    ZFC Domain-->B;
+    ZFC_Domain-->B;
     B-->C;
 ```
 Cartesian Product & State Space:
