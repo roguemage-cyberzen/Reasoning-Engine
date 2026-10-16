@@ -88,3 +88,46 @@ flowchart TD
     L1 --> L2
     L2 --> L3
 ```
+
+## 3. Step-by-Step Implementation
+
+Step 1: Conceptual Objects and Canonical Mapping
+
+Every tuple $(c, t) \in V \times T$ maps injectively to a propositional literal $X_{c, t} \in \mathbb{N}^+$. The class StructuralDSL maintains this bijection using a hash table, ensuring referential integrity across constraints.
+
+```python
+class StructuralDSL:
+    def __init__(self):
+        self.formula = []
+        self.var_count = 0
+        self.var_map = {}
+
+    def get_var(self, *tags):
+        """
+        ZFC Mapping: (c, t) -> Unique Boolean Literal ID.
+        Ensures a collision-free bijection between set-theoretic coordinates
+        and the propositional propositional atoms.
+        """
+        if tags not in self.var_map:
+            self.var_count += 1
+            self.var_map[tags] = self.var_count
+        return self.var_map[tags]
+
+    def add_at_least_one(self, variables):
+        """Axiom of Existence: \bigvee_{i} v_i"""
+        self.formula.append(list(variables))
+
+    def add_at_most_one(self, variables):
+        """
+        Axiom of Uniqueness: Pairwise mutually exclusive implications.
+        \forall i < j, (\neg v_i \lor \neg v_j)
+        """
+        for i in range(len(variables)):
+            for j in range(i + 1, len(variables)):
+                self.formula.append([-variables[i], -variables[j]])
+
+    def add_exactly_one(self, variables):
+        """Axiom of Unique Existence: \exists! v \iff (ALO \land AMO)"""
+        self.add_at_least_one(variables)
+        self.add_at_most_one(variables)
+```
