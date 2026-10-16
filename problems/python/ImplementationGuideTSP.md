@@ -15,7 +15,7 @@ Let the set of cities be a finite set $V$ with cardinality $\vert{}V\vert{} = n 
 ```mermaid
 graph TD;
     ZFC_Domain-->First-Order_Predicates;
-    First-Order_Predicates-->Propositional CNF;
+    First-Order_Predicates-->Propositional_CNF;
 ```
 Cartesian Product & State Space:
 
