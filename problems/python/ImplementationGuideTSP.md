@@ -180,3 +180,31 @@ def apply_symmetry_breaking(dsl, n):
             var_cb_pend = dsl.get_var("city", cb, "pos", n - 1)
             dsl.formula.append([-var_ca_p1, -var_cb_pend])
 ```
+### Step 4: Metric Projection & Forbidden Transition Gates
+
+Instead of calculating arithmetic sums within propositional clauses, we apply a Metric Filter. Given a candidate bottleneck limit $W$, any pair of cities whose distance exceeds $W$ cannot be adjacent in time.
+
+$$\forall u, v \in V \text{ where } d(u, v) > W \implies \forall t \in T, \; \neg \big( \tau(u) = t \land \tau(v) = (t + 1) \bmod n \big)$$
+
+Converted to Conjunctive Normal Form via De Morgan's Laws:
+
+$$\big( \neg X_{u, t} \lor \neg X_{v, (t+1) \bmod n} \big)$$
+
+```python
+def apply_metric_pruning(dsl, n, dist_matrix, max_edge_weight):
+    """
+    Translates physical distance violations into binary conflict clauses.
+    Two-Watched Literals (2WL) propagates these conflicts in O(1) time.
+    """
+    for u in range(n):
+        for v in range(n):
+            if u == v:
+                continue
+            if dist_matrix[u][v] > max_edge_weight:
+                for t in range(n):
+                    next_t = (t + 1) % n
+                    var_u_t = dsl.get_var("city", u, "pos", t)
+                    var_v_next = dsl.get_var("city", v, "pos", next_t)
+                    dsl.formula.append([-var_u_t, -var_v_next])
+```
+
