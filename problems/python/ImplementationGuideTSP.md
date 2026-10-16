@@ -16,7 +16,7 @@ Let the set of cities be a finite set $V$ with cardinality $\vert{}V\vert{} = n 
     stateDiagram-v2
         State1: ZFC Domain
         note right of State1
-            Important information! You can write
+            V (Cities)
             notes.
         end note
         State1 --> State2
