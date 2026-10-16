@@ -20,11 +20,17 @@ By the Axiom of Pairing and Axiom of Union, we construct the Cartesian product:
 $$V \times T = \{ (c, t) : c \in V \land t \in T \}$$
 
 A candidate tour $\tau$ is a relation $\tau \subseteq V \times T$.
-The Bijection Axiom (Hamiltonian Invariant):By the Axiom of Specification, the admissible set of cyclic tours $\mathcal{T}_{\text{valid}}$ requires that $\tau$ is a bijection:
+
+The Bijection Axiom (Hamiltonian Invariant):
+
+By the Axiom of Specification, the admissible set of cyclic tours $\mathcal{T}_{\text{valid}}$ requires that $\tau$ is a bijection:
 
 $$\tau : V \longleftrightarrow T$$
 
-In first-order logic, this decomposes into two orthogonal uniqueness requirements:Totality & Well-Definedness (Time Uniqueness):$$\forall c \in V, \, \exists ! t \in T \text{ such that } (c, t) \in \tau
+In first-order logic, this decomposes into two orthogonal uniqueness requirements:
+Totality & Well-Definedness (Time Uniqueness):
+
+$$\forall c \in V, \, \exists ! t \in T \text{ such that } (c, t) \in \tau
 
 * Injectivity & Surjectivity (Space Uniqueness):
 
