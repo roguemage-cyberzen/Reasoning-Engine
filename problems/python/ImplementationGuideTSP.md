@@ -30,7 +30,7 @@ $$\tau : V \longleftrightarrow T$$
 In first-order logic, this decomposes into two orthogonal uniqueness requirements:
 Totality & Well-Definedness (Time Uniqueness):
 
-$$\forall c \in V, \, \exists ! t \in T \text{ such that } (c, t) \in \tau
+$$\forall c \in V, \, \exists ! t \in T \text{ such that } (c, t) \in \tau $$
 
 * Injectivity & Surjectivity (Space Uniqueness):
 
