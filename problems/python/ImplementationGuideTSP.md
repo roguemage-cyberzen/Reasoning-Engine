@@ -13,14 +13,25 @@ Let the set of cities be a finite set $V$ with cardinality $\vert{}V\vert{} = n 
 |T (Time-Steps) |  |  Product      | |Bijective Function                           |Canonical Literals|
                         ||           |∀c ∃!t τ(c, t) ∧ ∀t ∃!c τ(c, t)|         | 2WL Watch Lists|
 ```mermaid
-treemap-beta
-"Section 1"
-    "Leaf 1.1": 12
-    "Section 1.2"
-      "Leaf 1.2.1": 12
-"Section 2"
-    "Leaf 2.1": 20
-    "Leaf 2.2": 25
+flowchart LR
+    subgraph ZFC["ZFC Domain"]
+        direction TB
+        V["V (Cities)"]
+        T["T (Time-Steps)"]
+    end
+
+    subgraph FOP["First-Order Predicates"]
+        direction TB
+        tau["τ ⊆ V × T<br/>Bijective Function<br/>∀c ∃!t τ(c, t) ∧ ∀t ∃!c τ(c, t)"]
+    end
+
+    subgraph CNF["Propositional CNF"]
+        direction TB
+        prop["X_{c,t} ∈ {0, 1}<br/>Canonical Literals<br/>2WL Watch Lists"]
+    end
+
+    ZFC -->|Cartesian Product| FOP
+    FOP -->|Encoder| CNF
 ```
 Cartesian Product & State Space:
 
