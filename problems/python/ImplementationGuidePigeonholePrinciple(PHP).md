@@ -124,7 +124,17 @@ def apply_php_invariants(dsl: StructuralDSL, pigeons: int, holes: int) -> None:
         hole_occupants = [dsl.get_var("p", i, "h", j) for i in range(pigeons)]
         dsl.add_at_most_one(hole_occupants)
 ```
-Step 3: Search Space Pruning via Symmetry Breaking (Automorphism Collapse)The unconstrained formula $\text{PHP}_n^m$ admits full permutation invariance under the direct product of symmetric groups:$$G = S_m \times S_n$$where $\vert{}G\vert{} = m! \cdot n!$. Permuting pigeons or permuting holes leaves the unsatisfiability certificate structurally unchanged.We eliminate this factorial redundancy by injecting lexicographical symmetry-breaking constraints:Pigeon Anchor (Static Unit Injection): Pin Pigeon $0$ into Hole $0$:$$p_{0, 0} = \text{TRUE}$$This collapses the initial $n$ symmetric configurations into one fixed frame of reference.Order Constraints: For subsequent pigeons $i$, restrict placement to prevent symmetric transposition of unassigned holes.
+Step 3: Search Space Pruning via Symmetry Breaking (Automorphism Collapse)The unconstrained formula $\text{PHP}_n^m$ admits full permutation invariance under the direct product of symmetric groups:
+
+$$G = S_m \times S_n$$where $\vert{}G\vert{} = m! \cdot n!$. Permuting pigeons or permuting holes leaves the unsatisfiability certificate structurally unchanged.We eliminate this factorial redundancy by injecting lexicographical symmetry-breaking constraints:
+
+1.    Pigeon Anchor (Static Unit Injection): Pin Pigeon $0$ into Hole $0$:
+
+$$p_{0, 0} = \text{TRUE}$$
+
+This collapses the initial $n$ symmetric configurations into one fixed frame of reference.
+
+2.    Order Constraints: For subsequent pigeons $i$, restrict placement to prevent symmetric transposition of unassigned holes.
 
 
 
