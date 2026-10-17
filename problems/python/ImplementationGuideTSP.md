@@ -8,10 +8,7 @@ A typical algorithmic failure mode is treating Boolean SAT variables as unground
 ### The Problem in ZFC Axiomaics
 Let the set of cities be a finite set $V$ with cardinality $\vert{}V\vert{} = n \in \omega$. The tour ordering is indexed by the finite ordinal $T = n = \{0, 1, \dots, n - 1\}$.
 
-|ZFC Domain     |  |                  First-Order Predicates    |        |         Propositional CNF|
-| V (Cities)    | |──(Cartesian)──►| | τ ⊆ V × T               | |──(Encoder)──►| | X_{c,t} ∈ {0, 1}|
-|T (Time-Steps) |  |  Product      | |Bijective Function         |         ||          |Canonical Literals|
-                        ||           |∀c ∃!t τ(c, t) ∧ ∀t ∃!c τ(c, t)|     ||    | 2WL Watch Lists|
+
 ```mermaid
 flowchart LR
     subgraph ZFC["ZFC Domain"]
