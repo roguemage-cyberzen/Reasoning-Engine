@@ -388,15 +388,6 @@ if __name__ == "__main__":
 |  Dimension |  Classical Branch-and-Bound (Integer Linear Programming) | Reasoning Engine (Structural Deduction / CDCL) |
 | :---         |     :---:      |          ---: |
 | Search Paradigm   | Relaxation-driven; branches on continuous bounds ($\mathbb{R}^n$) and adds cutting planes.      | Resolution-driven; operates directly on discrete combinatorial space.   |
-| Symmetry Handling   | Requires heavy branch-and-cut callbacks to avoid evaluating flipped tours.      | Group Orbit Pruning: Symmetries are removed at the DSL encoding level prior to solving. |      |
-
-|  Dimension  |    Classical Branch-and-Bound (Integer Linear Programming)  |    Reasoning Engine (Structural Deduction / CDCL)  | 
-| ____________| ____________________________________________________________| ___________________________________________________| 
-
-| Search Paradigm  |     Relaxation-driven; branches on continuous bounds ($\mathbb{R}^n$) and adds cutting planes.  |   Resolution-driven; operates directly on discrete combinatorial space.| 
-
-| Symmetry Handling  |    Requires heavy branch-and-cut callbacks to avoid evaluating flipped tours. |  Group Orbit Pruning: Symmetries are removed at the DSL encoding level prior to solving.| 
-
+| Symmetry Handling   | Requires heavy branch-and-cut callbacks to avoid evaluating flipped tours.      | Group Orbit Pruning: Symmetries are removed at the DSL encoding level prior to solving. |    
 | Dead-End Pruning  |     Backtracks chronologically to the last LP relaxation node. |  1UIP Clause Learning: Backjumps across non-relevant decision levels directly to the source conflict.| 
-
 | Unit Propagation  |     Re-computes fractional simplex tableaux ($O(n^3)$ worst-case per step). |    Two-Watched Literals: Propagates forced choices with $O(1)$ amortized memory operations.| 
