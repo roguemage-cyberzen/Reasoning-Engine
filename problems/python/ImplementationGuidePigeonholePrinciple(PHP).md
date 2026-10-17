@@ -65,3 +65,27 @@ Armin Haken (1985) proved that any propositional resolution refutation of raw $\
 $$\Omega(2^{c \cdot n})$$
 
 resolution steps. A standard CDCL engine executing without pre-search structural reduction evaluates symmetric sub-assignments repeatedly, learning exponentially redundant conflict clauses. To defeat this lower bound, the Structural Layer must collapse the automorphism group before the CDCL loop initializes.
+
+```mermaid
+flowchart TD
+    subgraph L1["1. Modeling Layer (DSL)"]
+        direction TB
+        L1_text["• Maps ZFC Cartesian tuples (p, h) to Boolean Atoms<br/>• Injects Total Function and Exclusivity Cardinality Gates"]
+    end
+
+    subgraph L2["2. Structural Layer (Symmetry Breaker)"]
+        direction TB
+        L2_text["• Automorphism Collapse: Breaks S_m × S_n Permutations<br/>• Lexicographical Ordering / Anchor Pinning"]
+    end
+
+    subgraph L3["3. Execution Layer (ReasoningCore)"]
+        direction TB
+        L3_text["• Two-Watched Literals (2WL) Unit Propagation<br/>• 1UIP Dynamic Refutation<br/>• VSIDS Activity Decay"]
+    end
+
+    L1 --> L2
+    L2 --> L3
+```
+
+
+
