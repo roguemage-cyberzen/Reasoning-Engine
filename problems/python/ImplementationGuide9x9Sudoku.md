@@ -246,7 +246,11 @@ if __name__ == "__main__":
         print_grid(solution)
 ```
 
+##    5. Architectural Comparison: Recursive Backtracking vs. Structural CDCL
 
+|Dimension    |    Naive Recursive Backtracking (Brute Force)    |    Reasoning Engine (Structural Deduction / CDCL)    |
+| :---         |     :---:      |          ---: |
+Search ParadigmDepth-first trial-and-error over empty cells; guesses values and checks validity.Exact-Cover mapping into propositional clauses resolved via Boolean constraint propagation.Deduction EngineEvaluates constraints locally cell-by-cell ($O(9)$ scan per step).Two-Watched Literals (2WL): Automatically triggers deterministic cascades (naked/hidden singles) in $O(1)$ amortized time.Failure RecoveryChronological backtracking (undoes only the immediately preceding cell decision).1UIP Conflict Clause Learning: Identifies root contradiction sets and backjumps directly across multiple levels.Heuristic DirectionFixed row-major ordering or simple MRV (Minimum Remaining Values).VSIDS (Variable State Independent Decaying Sum): Dynamically prioritizes variables actively participating in recent grid conflicts.
 
 
 
