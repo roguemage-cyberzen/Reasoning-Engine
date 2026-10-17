@@ -66,6 +66,8 @@ $$\Omega(2^{c \cdot n})$$
 
 resolution steps. A standard CDCL engine executing without pre-search structural reduction evaluates symmetric sub-assignments repeatedly, learning exponentially redundant conflict clauses. To defeat this lower bound, the Structural Layer must collapse the automorphism group before the CDCL loop initializes.
 
+# 2. The 3-Tier Layer Cake Architecture
+
 ```mermaid
 flowchart TD
     subgraph L1["1. Modeling Layer (DSL)"]
@@ -86,6 +88,22 @@ flowchart TD
     L1 --> L2
     L2 --> L3
 ```
+# 3. Step-by-Step Implementation
 
+Step 1: Conceptual Objects and Canonical Mapping
+
+Each element $(i, j) \in P \times H$ maps injectively to a propositional literal $p_{i, j} \in \mathbb{N}^+$. We import StructuralDSL directly from ReasoningKit to maintain an injective mapping from coordinates to variable IDs:
+
+```python
+from ReasoningKit import StructuralDSL
+
+dsl = StructuralDSL()
+
+# ZFC Mapping: (i, j) -> Unique Propositional Atom p_{i, j}
+# Example: Pigeon 2 assigned to Hole 0
+pigeon_id = 2
+hole_id = 0
+var_id = dsl.get_var("p", pigeon_id, "h", hole_id)
+```
 
 
