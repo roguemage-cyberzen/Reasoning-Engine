@@ -149,31 +149,26 @@ $$\tau_{\text{rev}} = (c_0, c_{n-1}, \dots, c_1)$$
 
 We prune the search space by a factor of $2n$ before the solver makes its first decision:
 ```python
-def apply_symmetry_breaking(dsl, n):
+def apply_symmetry_breaking(dsl: StructuralDSL, n: int) -> None:
     """
-    1. Cyclic Orbit Collapsing:
-       Fix City 0 at Position 0. This forces the cycle to anchor at origin,
-       collapsing the C_n symmetry group by a factor of n.
+    Collapses the Dihedral Automorphism Group D_n (order 2n):
+    1. Cyclic Shift (C_n): Fix City 0 at Position 0 (factor of n reduction).
+    2. Reflection (Z_2): Enforce City at Pos 1 < City at Pos (n-1) (factor of 2 reduction).
     """
+    # 1. Cyclic Orbit Collapsing: Injected as a Unit Clause
     c0_p0 = dsl.get_var("city", 0, "pos", 0)
-    dsl.formula.append([c0_p0]) # Injected as a Unit Fact
+    dsl.formula.append([c0_p0])
 
-    """
-    2. Reflection Orbit Collapsing:
-       Force the city at Position 1 to have a strictly smaller index
-       than the city at Position n-1. Collapses the Z_2 reflection group.
-       \forall c_a > c_b: \neg (City_{c_a, 1} \land City_{c_b, n-1})
-    """
+    # 2. Reflection Orbit Collapsing: Forbid ca at Pos 1 if cb at Pos n-1 (for all ca > cb)
     for ca in range(n):
         for cb in range(ca + 1, n):
-            # Prohibit ca at position 1 if cb appears at position n-1
             var_ca_p1 = dsl.get_var("city", ca, "pos", 1)
             var_cb_pend = dsl.get_var("city", cb, "pos", n - 1)
             dsl.formula.append([-var_ca_p1, -var_cb_pend])
 ```
 ### Step 4: Metric Projection & Forbidden Transition Gates
 
-Instead of calculating arithmetic sums within propositional clauses, we apply a Metric Filter. Given a candidate bottleneck limit $W$, any pair of cities whose distance exceeds $W$ cannot be adjacent in time.
+Rather than computing multi-variable arithmetic inside clauses, we apply a Metric Bottleneck Filter. Given a candidate maximum edge cost $W$, any pair of cities whose metric distance exceeds $W$ cannot appear consecutively in the tour sequence:
 
 $$\forall u, v \in V \text{ where } d(u, v) > W \implies \forall t \in T, \; \neg \big( \tau(u) = t \land \tau(v) = (t + 1) \bmod n \big)$$
 
