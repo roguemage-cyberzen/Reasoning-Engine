@@ -1,3 +1,7 @@
+# Designing a Universal Reasoning Engine: Implementation Guide for the Pigeonhole Principle (PHP)
+
+This document formalizes the Pigeonhole Principle ($\text{PHP}_n^{m}$) within the Structural Complexity Reduction framework. It bridges the foundational axioms of Zermelo-Fraenkel Set Theory with Choice (ZFC), the Haken exponential resolution lower bound, and our 3-tier Python implementation using ReasoningKit.
+
 # 1. Theoretical Bridge: Grounding PHP in ZFC Set Theory
 
 In standard proof complexity, $\text{PHP}_n^{m}$ (asserting that $m$ pigeons placed into $n$ holes with $m > n$ 
