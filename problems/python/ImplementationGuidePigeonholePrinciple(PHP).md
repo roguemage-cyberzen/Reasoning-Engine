@@ -135,7 +135,15 @@ $$p_{0, 0} = \text{TRUE}$$
 This collapses the initial $n$ symmetric configurations into one fixed frame of reference.
 
 2.    Order Constraints: For subsequent pigeons $i$, restrict placement to prevent symmetric transposition of unassigned holes.
-
+```python
+def apply_php_symmetry_breaking(dsl: StructuralDSL, pigeons: int, holes: int) -> None:
+    """
+    Collapses the S_m x S_n automorphism group.
+    Pinning Pigeon 0 to Hole 0 removes the initial rotational n! hole orbits.
+    """
+    p0_h0 = dsl.get_var("p", 0, "h", 0)
+    dsl.formula.append([p0_h0])
+```
 
 
 
