@@ -86,3 +86,18 @@ flowchart TD
     L1 --> L2
     L2 --> L3
 ```
+
+# 3. Step-by-Step ImplementationStep
+
+1: Conceptual Objects and Canonical MappingEach coordinate $(r, c, v) \in R \times C \times V$ represents the statement: "Cell $(r, c)$ contains digit $v$." We import StructuralDSL directly from ReasoningKit to maintain this coordinate bijection:
+
+```python
+from ReasoningKit import StructuralDSL
+
+dsl = StructuralDSL()
+
+# ZFC Mapping: (r, c, v) -> Canonical Propositional Variable X_{r, c, v}
+# Example: Map Row 0, Column 4 containing Value 7
+r, c, v = 0, 4, 7
+var_id = dsl.get_var("cell", r, c, "val", v)
+```
