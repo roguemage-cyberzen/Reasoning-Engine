@@ -31,11 +31,11 @@ flowchart LR
 Let the set of pigeons be $P$ with finite cardinality $\vert{}P\vert{} = m$, and the set of holes be $H$ with $\vert{}H\vert{} = n$, where $m > n$ ($m, n \in \omega$).
 1.    Cartesian State Space:
 
-    By the Axiom of Pairing and Axiom of Union, we construct:
+By the Axiom of Pairing and Axiom of Union, we construct:
 
 $$P \times H = \{ (i, j) : i \in P \land j \in H \}$$
 
-    A distribution of pigeons into holes is a binary relation $f \subseteq P \times H$.
+A distribution of pigeons into holes is a binary relation $f \subseteq P \times H$.
 
 2.    The Injective Total Function Invariants:
 
@@ -54,7 +54,7 @@ $$\forall i_1, i_2 \in P \, (i_1 \neq i_2), \, \forall j \in H, \, \neg \big( (i
 
 3.    The Dedekind Finite Contradiction:
 
-    In ZFC, a finite set $H$ cannot be put into one-to-one correspondence with a proper superset $P$ without violating the definition of finite ordinals. Thus:
+In ZFC, a finite set $H$ cannot be put into one-to-one correspondence with a proper superset $P$ without violating the definition of finite ordinals. Thus:
 
 $$\text{Inj}(P, H) = \emptyset \quad \Longleftrightarrow \quad \text{PHP}_n^m \models \bot$$
 
