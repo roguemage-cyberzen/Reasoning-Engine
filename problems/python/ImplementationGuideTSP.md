@@ -152,8 +152,11 @@ def apply_hamiltonian_invariants(dsl, n):
 
 A raw TSP on $n$ vertices has an unpruned search space of $n!$ configurations. However, any valid Hamiltonian cycle exhibits automorphism under the Dihedral Group $D_n$ (order $2n$):
 *  Cyclic Shift Symmetry ($C_n$): A cyclic shift of positions does not alter path weight:
+
 $$\tau' = (c_0, c_1, \dots, c_{n-1}) \cong (c_k, c_{k+1}, \dots, c_{k-1})$$
+
 *  Reflectional/Reversal Symmetry ($\mathbb{Z}_2$): Traversing clockwise vs. counter-clockwise:
+
 $$\tau_{\text{rev}} = (c_0, c_{n-1}, \dots, c_1)$$
 
 We prune the search space by a factor of $2n$ before the solver makes its first decision:
@@ -385,7 +388,7 @@ if __name__ == "__main__":
 |  Dimension |  Classical Branch-and-Bound (Integer Linear Programming) | Reasoning Engine (Structural Deduction / CDCL) |
 | :---         |     :---:      |          ---: |
 | Search Paradigm   | Relaxation-driven; branches on continuous bounds ($\mathbb{R}^n$) and adds cutting planes.      | Resolution-driven; operates directly on discrete combinatorial space.   |
-| git diff     | git diff       | git diff      |
+| Symmetry Handling   | Requires heavy branch-and-cut callbacks to avoid evaluating flipped tours.      | Group Orbit Pruning: Symmetries are removed at the DSL encoding level prior to solving. |      |
 
 |  Dimension  |    Classical Branch-and-Bound (Integer Linear Programming)  |    Reasoning Engine (Structural Deduction / CDCL)  | 
 | ____________| ____________________________________________________________| ___________________________________________________| 
