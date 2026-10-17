@@ -90,7 +90,7 @@ flowchart TD
 ```
 # 3. Step-by-Step Implementation
 
-Step 1: Conceptual Objects and Canonical Mapping
+### Step 1: Conceptual Objects and Canonical Mapping
 
 Each element $(i, j) \in P \times H$ maps injectively to a propositional literal $p_{i, j} \in \mathbb{N}^+$. We import StructuralDSL directly from ReasoningKit to maintain an injective mapping from coordinates to variable IDs:
 
@@ -105,5 +105,27 @@ pigeon_id = 2
 hole_id = 0
 var_id = dsl.get_var("p", pigeon_id, "h", hole_id)
 ```
+### Step 2: Enforcing Structural Invariants
+We assert that each pigeon occupies a unique hole (bijective slice into the holes) and enforce hole non-concurrency:
+```python
+def apply_php_invariants(dsl: StructuralDSL, pigeons: int, holes: int) -> None:
+    """
+    Enforces that f: P -> H is a well-defined function and injective.
+    1. Totality & Well-Definedness: Exactly one hole per pigeon.
+    2. Injectivity: At most one pigeon per hole.
+    """
+    # 1. Totality & Well-Definedness: \forall i \in P, \exists! j \in H
+    for i in range(pigeons):
+        p_options = [dsl.get_var("p", i, "h", j) for j in range(holes)]
+        dsl.add_exactly_one(p_options)
+
+    # 2. Injectivity (Exclusivity): \forall j \in H, \sum_{i} (p_{i, j}) <= 1
+    for j in range(holes):
+        hole_occupants = [dsl.get_var("p", i, "h", j) for i in range(pigeons)]
+        dsl.add_at_most_one(hole_occupants)
+```
+Step 3: Search Space Pruning via Symmetry Breaking (Automorphism Collapse)The unconstrained formula $\text{PHP}_n^m$ admits full permutation invariance under the direct product of symmetric groups:$$G = S_m \times S_n$$where $\vert{}G\vert{} = m! \cdot n!$. Permuting pigeons or permuting holes leaves the unsatisfiability certificate structurally unchanged.We eliminate this factorial redundancy by injecting lexicographical symmetry-breaking constraints:Pigeon Anchor (Static Unit Injection): Pin Pigeon $0$ into Hole $0$:$$p_{0, 0} = \text{TRUE}$$This collapses the initial $n$ symmetric configurations into one fixed frame of reference.Order Constraints: For subsequent pigeons $i$, restrict placement to prevent symmetric transposition of unassigned holes.
+
+
 
 
