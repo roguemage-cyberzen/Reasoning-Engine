@@ -190,7 +190,7 @@ if __name__ == "__main__":
 ## 5. Architectural Comparison: Raw Resolution vs. Structural CDCL
 
 |    Dimension    |    Raw Propositional Resolution (Standard CDCL)    |    Reasoning Engine (Structural Deduction / CDCL)    |
-
+| :---         |     :---:      |          ---: |
 Proof Complexity    |Bound by Haken's lower bound: $\Omega(2^{cn})$ resolution steps.    |Polynomial trajectory by pre-collapsing orbit permutations.
 Symmetry HandlingNone; explores isomorphic failures across all $m! \cdot n!$ permutations.Group Orbit Pruning: Symmetry-breaking constraints fix initial anchors at the DSL stage.Contradiction DiscoveryLearns local conflict clauses repetitively across equivalent branches.1UIP Conflict Analysis: Derives asserted conflict clauses that prune whole equivalence classes.Propagation EngineFull clause scans ($O(M)$ per assignment).Two-Watched Literals: Propagates forced choices with $O(1)$ amortized memory operations.
 
