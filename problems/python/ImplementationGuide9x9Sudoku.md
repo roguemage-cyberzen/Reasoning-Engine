@@ -89,7 +89,8 @@ flowchart TD
 
 # 3. Step-by-Step ImplementationStep
 
-1: Conceptual Objects and Canonical MappingEach coordinate $(r, c, v) \in R \times C \times V$ represents the statement: "Cell $(r, c)$ contains digit $v$." We import StructuralDSL directly from ReasoningKit to maintain this coordinate bijection:
+##    1: Conceptual Objects and Canonical Mapping
+Each coordinate $(r, c, v) \in R \times C \times V$ represents the statement: "Cell $(r, c)$ contains digit $v$." We import StructuralDSL directly from ReasoningKit to maintain this coordinate bijection:
 
 ```python
 from ReasoningKit import StructuralDSL
@@ -100,4 +101,45 @@ dsl = StructuralDSL()
 # Example: Map Row 0, Column 4 containing Value 7
 r, c, v = 0, 4, 7
 var_id = dsl.get_var("cell", r, c, "val", v)
+```
+
+##    Step 2: Enforcing Structural Invariants (Exact-1 Partitions)
+We enforce the Latin-Square and cell properties using dsl.add_exactly_one(). Because each cell has an add_exactly_one constraint across values, enforcing add_at_most_one across rows, columns, and blocks mathematically completes the Exact-Cover formulation with minimal clause redundancy.
+
+```python
+def apply_sudoku_invariants(dsl: StructuralDSL) -> None:
+    """
+    Enforces the four Latin-Square Exact-1 partition invariants.
+    1. Cell Uniqueness: Each (r, c) contains exactly one digit v.
+    2. Row Uniqueness: Each digit v appears at most once per row r.
+    3. Column Uniqueness: Each digit v appears at most once per column c.
+    4. Block Uniqueness: Each digit v appears at most once per 3x3 block.
+    """
+    # 1. Cell Uniqueness (\forall r, c, \exists! v)
+    for r in range(9):
+        for c in range(9):
+            cell_vars = [dsl.get_var("cell", r, c, "val", v) for v in range(1, 10)]
+            dsl.add_exactly_one(cell_vars)
+
+    # 2. Row, Column, and Block Constraints (\forall v \in 1..9)
+    for v in range(1, 10):
+        # Row Uniqueness
+        for r in range(9):
+            row_vars = [dsl.get_var("cell", r, c, "val", v) for c in range(9)]
+            dsl.add_at_most_one(row_vars)
+
+        # Column Uniqueness
+        for c in range(9):
+            col_vars = [dsl.get_var("cell", r, c, "val", v) for r in range(9)]
+            dsl.add_at_most_one(col_vars)
+
+        # 3x3 Block Uniqueness
+        for br in range(3):
+            for bc in range(3):
+                block_vars = [
+                    dsl.get_var("cell", br * 3 + dr, bc * 3 + dc, "val", v)
+                    for dr in range(3)
+                    for dc in range(3)
+                ]
+                dsl.add_at_most_one(block_vars)
 ```
