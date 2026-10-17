@@ -28,5 +28,41 @@ flowchart LR
     ZFC -->|Cartesian Product| FOP
     FOP -->|3D Bit-Cube Encoder| CNF
 ```
+##    The Problem in ZFC Axiomatics
 
+Let the set of row indices $R$, column indices $C$, and assigned digits $V$ each be isomorphic to the finite ordinal $9 = \{0, 1, \dots, 8\}$. For digits, we map $V = \{1, 2, \dots, 9\}$.
+
+1.    The 3D Bit-Cube Product:
+By the Axiom of Pairing and Axiom of Union, we construct the product space:
+
+$$R \times C \times V = \{ (r, c, v) : r \in R \land c \in C \land v \in V \}$$
+
+This yields a finite universe of $\vert{}R \times C \times V\vert{} = 9 \times 9 \times 9 = 729$ discrete propositional ground states.
+
+2.    The Exact-1 Functional Invariants (4-Way Dual Orthogonality):
+
+A completed grid is a functional assignment $f: R \times C \to V$. To satisfy the Latin square and block partitions, $f$ must obey four simultaneous Exact-1 ($\exists !$) cardinality constraints:
+
+*    Cell Well-Definedness (Every cell holds exactly one digit):
+$$\forall r \in R, \, \forall c \in C, \, \exists ! v \in V \text{ such that } f(r, c) = v$$
+
+*    Row Latin Property (Every digit appears exactly once per row):
+
+$$\forall r \in R, \, \forall v \in V, \, \exists ! c \in C \text{ such that } f(r, c) = v$$
+
+*    Column Latin Property (Every digit appears exactly once per column):
+
+$$\forall c \in C, \, \forall v \in V, \, \exists ! r \in R \text{ such that } f(r, c) = v$$
+
+Block Partition Property (Every digit appears exactly once per $3 \times 3$ box):Partition $R \times C$ into 9 disjoint subsets $B_{b_r, b_c} = \{ (3b_r + dr, 3b_c + dc) : dr, dc \in \{0, 1, 2\} \}$ for $b_r, b_c \in \{0, 1, 2\}$.
+
+$$\forall (b_r, b_c), \, \forall v \in V, \, \exists ! (dr, dc) \text{ such that } f(3b_r + dr, 3b_c + dc) = v$$
+
+3.    Clue Injections as Axiomatic Truths (Unit Assertions):A puzzle clue $G \subset R \times C \times V$ is a fixed relation. Each predetermined entry $(r, c, v) \in G$ is injected as an immutable unit axiom:
+
+$$\bigwedge_{(r, c, v) \in G} X_{r, c, v}$$
+
+Because unit clues directly trigger Two-Watched Literals (2WL) chains, high-density propagation often cascades and solves large portions of the board without requiring search branches.
+
+#    2. The 3-Tier Layer Cake Architecture
 
