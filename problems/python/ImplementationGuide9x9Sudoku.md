@@ -143,3 +143,111 @@ def apply_sudoku_invariants(dsl: StructuralDSL) -> None:
                 ]
                 dsl.add_at_most_one(block_vars)
 ```
+
+##    Step 3: Injecting Clues as Fixed Facts
+
+Each non-zero entry in the input grid is an axiomatic fact. By adding these entries directly into dsl.formula as single-literal clauses ([var_id]), we inform the solver's root level before any decisions occur.
+
+```python
+def inject_sudoku_clues(dsl: StructuralDSL, grid: list[list[int]]) -> None:
+    """
+    Injects pre-filled board givens as Unit Clauses.
+    Triggers deterministic propagation cascades inside 2WL.
+    """
+    for r in range(9):
+        for c in range(9):
+            digit = grid[r][c]
+            if 1 <= digit <= 9:
+                clue_lit = dsl.get_var("cell", r, c, "val", digit)
+                dsl.formula.append([clue_lit])
+```
+##    4. Complete Execution Pipeline: The Sudoku Solver
+
+This script imports StructuralDSL and ReasoningCore from ReasoningKit, builds the constraints, propagates the solution, and reconstructs the completed 9x9 matrix:
+
+```python
+"""
+Pattern: 4-Way Exact-Cover Embedding
+Use Case: 9x9 Sudoku
+Methodology: 3D Bit-Cube Mapping + Unit Propagation Cascade + CDCL Core
+"""
+
+import time
+from ReasoningKit import StructuralDSL, ReasoningCore
+
+def solve_sudoku(grid: list[list[int]]) -> list[list[int]] | None:
+    print("--- [Sudoku] Initiating 9x9 Structural Solver ---")
+    dsl = StructuralDSL()
+
+    # 1. Structural Invariants (Exact-1 Partitions)
+    apply_sudoku_invariants(dsl)
+
+    # 2. Inject Puzzle Givens
+    inject_sudoku_clues(dsl, grid)
+
+    print(f"  Clauses generated: {len(dsl.formula)} | Variables: {dsl.var_count}")
+
+    # 3. Deductive Search Execution
+    solver = ReasoningCore(dsl.formula, dsl.var_count)
+
+    start_time = time.perf_counter()
+    result = solver.solve()
+    duration = time.perf_counter() - start_time
+
+    if result is None:
+        print("  Status: UNSATISFIABLE (Invalid or Contradictory Puzzle)")
+        return None
+
+    print(f"  Puzzle solved in {duration:.4f} seconds.")
+    print(f"  Decisions: {solver.decisions} | Conflicts: {solver.conflicts}")
+
+    # Reconstruct solved grid from model assignments
+    solved_grid = [[0] * 9 for _ in range(9)]
+    for r in range(9):
+        for c in range(9):
+            for v in range(1, 10):
+                vid = dsl.get_var("cell", r, c, "val", v)
+                if result.get(vid, False):
+                    solved_grid[r][c] = v
+                    break
+
+    return solved_grid
+
+def print_grid(g: list[list[int]]) -> None:
+    for r in range(9):
+        if r > 0 and r % 3 == 0:
+            print("------+-------+------")
+        row_str = []
+        for c in range(9):
+            if c > 0 and c % 3 == 0:
+                row_str.append("|")
+            row_str.append(str(g[r][c]))
+        print(" ".join(row_str))
+
+if __name__ == "__main__":
+    # Benchmark Grid (Standard Classic Puzzle)
+    puzzle = [
+        [5, 3, 0,  0, 7, 0,  0, 0, 0],
+        [6, 0, 0,  1, 9, 5,  0, 0, 0],
+        [0, 9, 8,  0, 0, 0,  0, 6, 0],
+
+        [8, 0, 0,  0, 6, 0,  0, 0, 3],
+        [4, 0, 0,  8, 0, 3,  0, 0, 1],
+        [7, 0, 0,  0, 2, 0,  0, 0, 6],
+
+        [0, 6, 0,  0, 0, 0,  2, 8, 0],
+        [0, 0, 0,  4, 1, 9,  0, 0, 5],
+        [0, 0, 0,  0, 8, 0,  0, 7, 9]
+    ]
+
+    solution = solve_sudoku(puzzle)
+    if solution:
+        print("\n--- Solved Grid ---")
+        print_grid(solution)
+```
+
+
+
+
+
+
