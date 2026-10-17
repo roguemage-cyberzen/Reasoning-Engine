@@ -88,59 +88,50 @@ flowchart TD
 
 ## 3. Step-by-Step Implementation
 
-### Step 1: Conceptual Objects and Canonical Mapping
+## Step 1: Conceptual Objects and Canonical Mapping
 
-Every tuple $(c, t) \in V \times T$ maps injectively to a propositional literal $X_{c, t} \in \mathbb{N}^+$. The class StructuralDSL maintains this bijection using a hash table, ensuring referential integrity across constraints.
+In ZFC axiomatics, the state space for the Traveling Salesperson Problem on $n$ cities is defined over the Cartesian product:
+
+$$V \times T = \{ (c, t) : c \in V \land t \in T \}$$
+where $V$ is the set of cities ($\vert{}V\vert{} = n$) and $T = n = \{0, 1, \dots, n - 1\}$ represents the ordered sequence of discrete time-steps.
+
+Every tuple $(c, t) \in V \times T$ maps injectively to a propositional literal $X_{c, t} \in \mathbb{N}^+$. Rather than manually tracking variable counter arithmetic, we import StructuralDSL directly from ReasoningKit. The get_var(*tags) method maintains this collision-free bijection through relational tuple hashing.
 
 ```python
-class StructuralDSL:
-    def __init__(self):
-        self.formula = []
-        self.var_count = 0
-        self.var_map = {}
+Python
+from ReasoningKit import StructuralDSL
 
-    def get_var(self, *tags):
-        """
-        ZFC Mapping: (c, t) -> Unique Boolean Literal ID.
-        Ensures a collision-free bijection between set-theoretic coordinates
-        and the propositional propositional atoms.
-        """
-        if tags not in self.var_map:
-            self.var_count += 1
-            self.var_map[tags] = self.var_count
-        return self.var_map[tags]
+# Instantiate the Domain-Specific Logic Compiler
+dsl = StructuralDSL()
 
-    def add_at_least_one(self, variables):
-        """Axiom of Existence: \bigvee_{i} v_i"""
-        self.formula.append(list(variables))
-
-    def add_at_most_one(self, variables):
-        """
-        Axiom of Uniqueness: Pairwise mutually exclusive implications.
-        \forall i < j, (\neg v_i \lor \neg v_j)
-        """
-        for i in range(len(variables)):
-            for j in range(i + 1, len(variables)):
-                self.formula.append([-variables[i], -variables[j]])
-
-    def add_exactly_one(self, variables):
-        """Axiom of Unique Existence: \exists! v \iff (ALO \land AMO)"""
-        self.add_at_least_one(variables)
-        self.add_at_most_one(variables)
+# ZFC Mapping: (c, t) -> Unique Boolean Literal ID X_{c, t}
+# Example: Map City 3 at Time-Step 1
+c = 3
+t = 1
+var_id = dsl.get_var("city", c, "pos", t)
 ```
 ### Step 2: Enforcing Structural Invariants
 
-The bijection $\tau : V \longleftrightarrow T$ is asserted by generating $2n$ cardinality gates.
+A valid Hamiltonian tour requires the relation $\tau \subseteq V \times T$ to be a bijective function:
+
+$$\tau : V \longleftrightarrow T$$
+
+By the Axiom of Specification, this decomposes into two orthogonal uniqueness invariants enforced via dsl.add_exactly_one():
+*    Space Uniqueness ($\forall t \in T, \, \exists ! c \in V$): Exactly one city occupies time-slot $t$.
+*    Time Uniqueness ($\forall c \in V, \, \exists ! t \in T$): Every city $c$ appears at exactly one time-slot $t$.
 ```python
-def apply_hamiltonian_invariants(dsl, n):
-    # Invariant A: Space Uniqueness (Every time-slot t has exactly one city)
-    # \forall t \in T, \exists! c \in V: (c, t) \in \tau
+def apply_hamiltonian_invariants(dsl: StructuralDSL, n: int) -> None:
+    """
+    Enforces the ZFC Bijection tau: V <-> T.
+    - Space Uniqueness: Exactly one city occupies step t.
+    - Time Uniqueness: Each city is scheduled at exactly one step t.
+    """
+    # 1. Space Uniqueness: \forall t \in T, \exists! c \in V: (c, t) \in \tau
     for t in range(n):
         slot_occupants = [dsl.get_var("city", c, "pos", t) for c in range(n)]
         dsl.add_exactly_one(slot_occupants)
 
-    # Invariant B: Time Uniqueness (Every city c appears at exactly one time-slot)
-    # \forall c \in V, \exists! t \in T: (c, t) \in \tau
+    # 2. Time Uniqueness: \forall c \in V, \exists! t \in T: (c, t) \in \tau
     for c in range(n):
         city_schedule = [dsl.get_var("city", c, "pos", t) for t in range(n)]
         dsl.add_exactly_one(city_schedule)
