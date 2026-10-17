@@ -36,6 +36,7 @@ By the Axiom of Pairing and Axiom of Union, we construct:
 $$P \times H = \{ (i, j) : i \in P \land j \in H \}$$
 
 A distribution of pigeons into holes is a binary relation $f \subseteq P \times H$.
+
 2.    The Injective Total Function Invariants:
 
 The formula $\text{PHP}_n^m$ attempts to assert that $f$ is both total and strictly injective:
