@@ -66,3 +66,23 @@ Because unit clues directly trigger Two-Watched Literals (2WL) chains, high-dens
 
 #    2. The 3-Tier Layer Cake Architecture
 
+``` mermaid
+flowchart TD
+    subgraph L1["1. Modeling Layer (DSL)"]
+        direction TB
+        L1_text["• Maps ZFC Cartesian tuples (r, c, v) to Boolean IDs<br/>• Generates Cell, Row, Column, and Block Exact-1 Gates"]
+    end
+
+    subgraph L2["2. Structural Layer (Unit Clue Injection)"]
+        direction TB
+        L2_text["• Injects Givens as Unit Literals [X_{r,c,v}]<br/>• Prunes Unassigned Domain Choices Instantly"]
+    end
+
+    subgraph L3["3. Execution Layer (ReasoningCore)"]
+        direction TB
+        L3_text["• Two-Watched Literals (2WL) Unit Propagation<br/>• 1UIP Conflict Analysis on Hard/Fiendish Grids<br/>• VSIDS Heuristic for Ambiguous Branching"]
+    end
+
+    L1 --> L2
+    L2 --> L3
+```
