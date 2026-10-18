@@ -150,3 +150,100 @@ def apply_coloring_invariants(dsl: StructuralDSL, nodes: list[int], edges: list[
             var_v = dsl.get_var("node", v, "color", c)
             dsl.formula.append([-var_u, -var_v])
 ```
+##    Step 4: Search Space Pruning via Symmetry Breaking
+
+Graph coloring problems possess full permutation symmetry over colors ($S_k$, order $k!$). Renaming colors yields an isomorphic configuration. An unguided solver will repeat identical conflict analyses across all $k!$ color permutations.
+
+We eliminate this symmetry by anchoring the first vertex:
+
+$$X_{0, 0} = \text{TRUE}$$
+
+This fixes vertex $0$ to color $0$, pruning symmetric branches by a factor of $k$.
+
+```python
+def apply_coloring_symmetry_breaking(dsl: StructuralDSL) -> None:
+    """
+    Breaks S_k color permutation symmetry by anchoring Node 0 to Color 0.
+    Injected as a Unit Fact.
+    """
+    v0_c0 = dsl.get_var("node", 0, "color", 0)
+    dsl.formula.append([v0_c0])
+```
+#    4. Complete Execution Pipeline: The $K_6$ Coloring Solver
+
+This script integrates SemanticAnalyzer, StructuralDSL, and ReasoningCore from ReasoningKit. It demonstrates how the topological filter resolves $k = 5$ instantly, and how the CDCL core resolves $k = 6$:
+```python
+"""
+Pattern: Topological Invariants with Semantic Short-Circuiting
+Use Case: Complete Graph (K6) Vertex Coloring
+Methodology: Clique Lower Bounds + Color Symmetry Breaking + CDCL
+"""
+
+import time
+from ReasoningKit import SemanticAnalyzer, StructuralDSL, ReasoningCore
+
+def run_k6_coloring(colors: int):
+    print(f"--- [K6] Adjacency Test: {colors} Colors ---")
+
+    # Construct complete graph K6 (6 vertices, 15 edges)
+    nodes = list(range(6))
+    edges = [(u, v) for i, u in enumerate(nodes) for v in nodes[i + 1:]]
+
+    # 1. Semantic Analysis (Topological Invariant Short-Circuit)
+    analyzer = SemanticAnalyzer(nodes, edges)
+    clique = analyzer.find_max_clique_estimate()
+    print(f"  Topological Scan: Max Clique size {len(clique)} identified.")
+
+    # Chromatic lower bound: \chi(G) \ge \omega(G)
+    if len(clique) > colors:
+        print("  Semantic Result: UNSATISFIABLE (Topological Proof: chi(G) >= omega(G)).")
+        return None
+
+    # 2. Logic Core Execution (if colors >= clique size)
+    print("  Semantic check passed. Transitioning to Deductive Search...")
+    dsl = StructuralDSL()
+
+    # Enforce coloring constraints
+    apply_coloring_invariants(dsl, nodes, edges, colors)
+
+    # Break S_k color permutation symmetries
+    apply_coloring_symmetry_breaking(dsl)
+
+    print(f"  Clauses generated: {len(dsl.formula)} | Variables: {dsl.var_count}")
+
+    # 3. Deductive Search Execution
+    solver = ReasoningCore(dsl.formula, dsl.var_count)
+
+    start_time = time.perf_counter()
+    result = solver.solve()
+    duration = time.perf_counter() - start_time
+
+    if result is None:
+        print(f"  Status: UNSATISFIABLE (Search Duration: {duration:.6f} seconds)")
+        return None
+
+    print(f"  Status: SATISFIABLE (Search Duration: {duration:.6f} seconds)")
+    print(f"  Decisions: {solver.decisions} | Conflicts: {solver.conflicts}")
+
+    # Decode vertex coloring assignment
+    coloring = {}
+    for n in nodes:
+        for c in range(colors):
+            vid = dsl.get_var("node", n, "color", c)
+            if result.get(vid, False):
+                coloring[n] = c
+                break
+
+    print(f"  Color Assignment: {coloring}")
+    return coloring
+
+
+if __name__ == "__main__":
+    # Test 1: 5 Colors on K6 -> Trigger instant topological UNSAT
+    run_k6_coloring(5)
+    print()
+
+    # Test 2: 6 Colors on K6 -> Passes semantic check and finds valid assignment
+    run_k6_coloring(6)
+```
+
