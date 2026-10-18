@@ -29,4 +29,24 @@ flowchart LR
     Topo -->|If k < ω: Instant UNSAT| Term["Halt with Formal Proof"]
     Topo -->|If k ≥ ω: Encode Residue| CNF
 ```
+##    The Problem in ZFC Axiomatics
 
+Let the vertex set $V$ be isomorphic to the finite ordinal $6 = \{0, 1, 2, 3, 4, 5\}$, and let the available colors be a finite set $K$ of cardinality $\vert{}K\vert{} = k$.
+
+###    1.Graph Product and Adjacency Relation:
+The edge set $E$ of the complete graph $K_6$ is the symmetric, irreflexive relation containing all unordered pairs over $V$:
+
+$$E = \big\{ \{u, v\} \in \mathcal{P}(V) : u \neq v \big\}, \quad \vert{}E\vert{} = \binom{6}{2} = 15$$
+The state space of vertex-color assignments is a binary relation $g \subseteq V \times K$.
+
+###    2.The Valid Coloring Invariants:
+A proper vertex coloring requires that $g$ defines a total function $g: V \to K$ satisfying the adjacency exclusion axiom:
+*    Totality / Existence (Every vertex receives at least one color):
+
+$$\forall v \in V, \, \exists c \in K \text{ such that } (v, c) \in g$$
+
+*    Well-Definedness (Every vertex receives at most one color):
+
+$$\forall v \in V, \, \forall c_1, c_2 \in K, \, \big( (v, c_1) \in g \land (v, c_2) \in g \implies c_1 = c_2 \big)$$
+
+Color Exclusivity along Edges (Adjacent vertices differ in color):$$\forall \{u, v\} \in E, \, \forall c \in K, \, \neg \big( (u, c) \in g \land (v, c) \in g \big)$$The Topological Lower Bound Invariant:In topological graph theory, the chromatic number $\chi(G)$ is bounded from below by the clique number $\omega(G)$ (the cardinality of the largest complete subgraph):$$\chi(G) \ge \omega(G)$$For $K_6$, every pair of distinct vertices is adjacent, so the entire graph is its own maximum clique: $\omega(K_6) = 6$.When testing $k = 5$ colors: $k < \omega(K_6) \implies \chi(K_6) > 5$. The semantic layer immediately deduces an unsatisfiability certificate without delegating to the SAT core.When testing $k \ge 6$ colors: the semantic check passes, and the reduced formula is evaluated by the logic engine.
