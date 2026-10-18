@@ -87,3 +87,24 @@ flowchart TD
     L1_text -->|"ω(G) ≤ k: Proceed to Encoding"| L2_text
     L2_text -->|"Emit CNF Dimension & Clauses"| L3_text
 ```
+##    3. Step-by-Step Implementation
+
+###    Step 1: Semantic Short-Circuiting (Topological Proof)
+
+Before transforming the graph into Boolean clauses, we invoke SemanticAnalyzer from ReasoningKit. It constructs an adjacency representation and calculates an estimate of the clique number $\omega(G)$. If $\omega(G) > k$, the formula is provably contradictory, bypassing the exponential clause-generation pipeline entirely.
+```python
+from ReasoningKit import SemanticAnalyzer
+
+# Define complete graph K6
+nodes = list(range(6))
+edges = [(u, v) for i, u in enumerate(nodes) for v in nodes[i + 1:]]
+
+# Compute maximum clique lower bound
+analyzer = SemanticAnalyzer(nodes, edges)
+clique = analyzer.find_max_clique_estimate()
+
+# Topological Invariant Gate
+color_budget = 5
+if len(clique) > color_budget:
+    print(f"UNSAT: Topological proof (omega = {len(clique)} > {color_budget})")
+```
