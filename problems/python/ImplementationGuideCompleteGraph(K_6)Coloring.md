@@ -39,11 +39,7 @@ The edge set $E$ of the complete graph $K_6$ is the symmetric, irreflexive relat
 
 $$E = \{ \{u, v\} \in \mathcal{P}(V) : u \neq v \}, \quad |E| = \binom{6}{2} = 15$$
 
-$$E = \big\{ \{u, v\} \in \mathcal{P}(V) : u \neq v \big\}, \quad \vert{}E\vert{} = \binom{6}{2} = 15$$
-
 $$E = \bigl\{ \{u, v\} \in \mathcal{P}(V) : u \neq v \bigr\}, \quad |E| = \binom{6}{2} = 15$$
-
-$$E = \big\{ \{u, v\} \in \mathcal{P}(V) : u \neq v \big\}, \quad \vert{}E\vert{} = \binom{6}{2} = 15$$
 
 $$E = \left\{ \{u, v\} \in \mathcal{P}(V) : u \neq v \right\}, \quad |E| = \binom{6}{2} = 15$$
 
