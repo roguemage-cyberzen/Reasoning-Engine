@@ -39,10 +39,6 @@ The edge set $E$ of the complete graph $K_6$ is the symmetric, irreflexive relat
 
 $$E = \{ \{u, v\} \in \mathcal{P}(V) : u \neq v \}, \quad |E| = \binom{6}{2} = 15$$
 
-$$E = \bigl\{ \{u, v\} \in \mathcal{P}(V) : u \neq v \bigr\}, \quad |E| = \binom{6}{2} = 15$$
-
-$$E = \left\{ \{u, v\} \in \mathcal{P}(V) : u \neq v \right\}, \quad |E| = \binom{6}{2} = 15$$
-
 The state space of vertex-color assignments is a binary relation $g \subseteq V \times K$.
 
 ###    2. The Valid Coloring Invariants:
@@ -71,4 +67,23 @@ For $K_6$, every pair of distinct vertices is adjacent, so the entire graph is i
 *    When testing $k \ge 6$ colors: the semantic check passes, and the reduced formula is evaluated by the logic engine.
 
 ##    2. The 3-Tier Layer Cake Architecture
+```mermaid
+flowchart TD
+    subgraph L1["1. Structural Layer (Semantic Analyzer)"]
+        direction TB
+        L1_text["• Extracts Graph Topology & Computes Clique Lower Bound ω(G)<br/>• Evaluates Invariant: If k < ω(G), Return Instant UNSAT Certificate"]
+    end
 
+    subgraph L2["2. Modeling Layer (StructuralDSL)"]
+        direction TB
+        L2_text["• Maps Vertex-Color Coordinates (v, c) to Boolean Literals<br/>• Enforces At-Least-One Gates & Pairwise Edge Conflict Clauses<br/>• Orbit Collapsing: Fixes v_0 to Color 0 (Breaks S_k Symmetry)"]
+    end
+
+    subgraph L3["3. Execution Layer (ReasoningCore)"]
+        direction TB
+        L3_text["• Two-Watched Literals (2WL) Unit Propagation<br/>• 1UIP Conflict Analysis for Feasible/Residual Color Assignments<br/>• VSIDS Variable Ordering"]
+    end
+
+    L1 -->|ω(G) ≤ k: Proceed to Search| L2
+    L2 --> L3
+```
