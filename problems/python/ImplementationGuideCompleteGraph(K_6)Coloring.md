@@ -108,3 +108,45 @@ color_budget = 5
 if len(clique) > color_budget:
     print(f"UNSAT: Topological proof (omega = {len(clique)} > {color_budget})")
 ```
+##    Step 2: Conceptual Objects and Canonical Mapping
+
+When $k \ge \omega(G)$, we map each vertex-color assignment $(v, c) \in V \times K$ to a unique positive integer literal $X_{v, c} \in \mathbb{N}^+$. We import StructuralDSL directly from ReasoningKit:
+
+```python
+from ReasoningKit import StructuralDSL
+
+dsl = StructuralDSL()
+
+# ZFC Mapping: (v, c) -> Canonical Propositional Variable X_{v, c}
+# Example: Vertex 2 assigned Color 1
+v = 2
+c = 1
+var_id = dsl.get_var("node", v, "color", c)
+```
+##    Step 3: Enforcing Structural Invariants
+
+A valid coloring requires each vertex to receive a color, and adjacent vertices to disagree on that color:
+1.    Vertex Covering ($\forall v \in V, \, \exists c \in K$): Each vertex has at least one color selected.
+2.    Edge Independence ($\forall (u, v) \in E, \, \forall c \in K$): Adjacent vertices cannot share color $c$:
+
+$$\neg \big( X_{u, c} \land X_{v, c} \big) \equiv \big( \neg X_{u, c} \lor \neg X_{v, c} \big)$$
+
+```python
+def apply_coloring_invariants(dsl: StructuralDSL, nodes: list[int], edges: list[tuple[int, int]], colors: int) -> None:
+    """
+    Asserts the proper vertex coloring constraints.
+    1. Coverage: Each node receives at least one color.
+    2. Conflict: Adjacent nodes cannot share the same color.
+    """
+    # 1. Coverage: \forall v \in V, \bigvee_{c} X_{v, c}
+    for n in nodes:
+        node_colors = [dsl.get_var("node", n, "color", c) for c in range(colors)]
+        dsl.add_at_least_one(node_colors)
+
+    # 2. Edge Exclusivity: \forall (u, v) \in E, \forall c \in K, (\neg X_{u, c} \lor \neg X_{v, c})
+    for u, v in edges:
+        for c in range(colors):
+            var_u = dsl.get_var("node", u, "color", c)
+            var_v = dsl.get_var("node", v, "color", c)
+            dsl.formula.append([-var_u, -var_v])
+```
