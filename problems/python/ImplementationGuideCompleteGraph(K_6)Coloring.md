@@ -39,6 +39,8 @@ The edge set $E$ of the complete graph $K_6$ is the symmetric, irreflexive relat
 
 $$E = \big\{ \{u, v\} \in \mathcal{P}(V) : u \neq v \big\}, \quad \vert{}E\vert{} = \binom{6}{2} = 15$$
 
+$$E = \big\{ \{u, v\} \in \mathcal{P}(V) : u \neq v \big\}, \quad \vert{}E\vert{} = \binom{6}{2} = 15$$
+
 The state space of vertex-color assignments is a binary relation $g \subseteq V \times K$.
 
 ###    2. The Valid Coloring Invariants:
