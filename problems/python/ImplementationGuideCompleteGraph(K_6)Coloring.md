@@ -34,6 +34,7 @@ flowchart LR
 Let the vertex set $V$ be isomorphic to the finite ordinal $6 = \{0, 1, 2, 3, 4, 5\}$, and let the available colors be a finite set $K$ of cardinality $\vert{}K\vert{} = k$.
 
 ###    1. Graph Product and Adjacency Relation:
+
 The edge set $E$ of the complete graph $K_6$ is the symmetric, irreflexive relation containing all unordered pairs over $V$:
 
 $$E = \big\{ \{u, v\} \in \mathcal{P}(V) : u \neq v \big\}, \quad \vert{}E\vert{} = \binom{6}{2} = 15$$
@@ -41,6 +42,7 @@ $$E = \big\{ \{u, v\} \in \mathcal{P}(V) : u \neq v \big\}, \quad \vert{}E\vert{
 The state space of vertex-color assignments is a binary relation $g \subseteq V \times K$.
 
 ###    2. The Valid Coloring Invariants:
+
 A proper vertex coloring requires that $g$ defines a total function $g: V \to K$ satisfying the adjacency exclusion axiom:
 *    Totality / Existence (Every vertex receives at least one color):
 
