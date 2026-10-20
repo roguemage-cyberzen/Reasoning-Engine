@@ -104,4 +104,15 @@ def apply_allocation_rules(dsl, pigeons, holes):
         hole_occupants = [get_pigeon_var(dsl, i, j) for i in range(pigeons)]
         dsl.add_at_most_one(hole_occupants)
 ```
+Step 3: Automorphism / Symmetry Breaking
 
+Because all pigeons are interchangeable and all holes are interchangeable, an unconstrained solver faces $m! \times n!$ equivalent permutations of failure.
+
+We break these symmetries using structural pins:
+1.    Origin Anchor: Fix Pigeon 0 into Hole 0. This breaks the initial $n$-fold rotational symmetry over available holes.
+2.    Positional Pruning: Enforce an ordering constraint preventing Pigeon 1 from being placed into holes that would duplicate an unassigned symmetric state.
+```python
+def apply_php_symmetry_breaking(dsl, pigeons, holes):
+    # Anchor the first entity (collapses initial n-way hole symmetry)
+    dsl.formula.append([get_pigeon_var(dsl, 0, 0)])
+```
