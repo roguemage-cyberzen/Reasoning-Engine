@@ -86,4 +86,22 @@ dsl = StructuralDSL()
 def get_pigeon_var(dsl, pigeon_idx, hole_idx):
     return dsl.get_var(f"p_{pigeon_idx}_h_{hole_idx}")
 ```
+###    Step 2: Structural Allocation Rules
+
+Every valid distribution must satisfy two fundamental invariants:
+*    Pigeon Assignment: Each pigeon must occupy exactly one hole.
+*    Hole Capacity: No hole can accommodate more than one pigeon.
+
+```python
+def apply_allocation_rules(dsl, pigeons, holes):
+    # Rule 1: Every pigeon must be assigned to exactly one hole (Existence & Uniqueness)
+    for i in range(pigeons):
+        pigeon_options = [get_pigeon_var(dsl, i, j) for j in range(holes)]
+        dsl.add_exactly_one(pigeon_options)
+
+    # Rule 2: Each hole can contain at most one pigeon (Exclusivity)
+    for j in range(holes):
+        hole_occupants = [get_pigeon_var(dsl, i, j) for i in range(pigeons)]
+        dsl.add_at_most_one(hole_occupants)
+```
 
