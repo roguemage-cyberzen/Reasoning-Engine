@@ -162,5 +162,9 @@ if __name__ == "__main__":
     # Test 2: CDCL Deductive Refutation with Symmetry Breaking (Testing Tier 2 & 3)
     run_php_systems_solver(6, 5, enable_semantic_bypass=False)
 ```
-
+##    5. Architectural Comparison: Classical Search vs. Reasoning Engine
+|    Feature    |    Standard CDCL / Propositional Resolution    |    Reasoning Engine Pipeline    |    
+Impossibility Proof    |    Generates $\Omega(2^n)$ resolution steps attempting every combination.    |    Macro Short-Circuit: Proves impossibility in $O(1)$ time via capacity invariants.
+|    Symmetry Management    |    Oblivious to item equivalence; solves $n!$ permutations of the exact same contradiction.    |    Automorphism Collapsing: Anchors fixed coordinates in the DSL to eliminate symmetric equivalence classes.    |    
+Clause Generation    |    Direct unpruned cartesian pairwise expansion.    |    Relational DSL: Manages exact-one and at-most-one gates with structured variable mapping. |    Trail Analysis    |    Backtracks through redundant decision levels.    |    1UIP Pruning: Derives conflict clauses that invalidate entire classes of assignments simultaneously.    |
 
