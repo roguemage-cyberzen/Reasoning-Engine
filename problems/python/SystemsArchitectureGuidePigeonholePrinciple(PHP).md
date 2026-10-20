@@ -116,3 +116,51 @@ def apply_php_symmetry_breaking(dsl, pigeons, holes):
     # Anchor the first entity (collapses initial n-way hole symmetry)
     dsl.formula.append([get_pigeon_var(dsl, 0, 0)])
 ```
+
+##    4. Execution Workflow
+```python
+from ReasoningKit import StructuralDSL, ReasoningCore
+import time
+
+def run_php_systems_solver(pigeons, holes, enable_semantic_bypass=True):
+    print(f"--- [PHP] Starting Systems Solver: {pigeons} Pigeons -> {holes} Holes ---")
+
+    # Tier 1: Structural Invariant Filter
+    if enable_semantic_bypass and pigeons > holes:
+        print("  [Structural Layer] Invariant Check: Pigeons > Holes.")
+        print("  [Semantic Result] Instant UNSAT Certificate issued (Capacity Bottleneck).")
+        return "UNSAT (Topological Invariant Proof)"
+
+    # Tier 2: Relational Compiler (DSL)
+    dsl = StructuralDSL()
+    apply_allocation_rules(dsl, pigeons, holes)
+    apply_php_symmetry_breaking(dsl, pigeons, holes)
+
+    print(f"  [DSL Compiler] Generated {len(dsl.formula)} clauses across {dsl.var_count} variables.")
+
+    # Tier 3: Deductive Execution Core
+    solver = ReasoningCore(dsl.formula, dsl.var_count)
+    
+    start_time = time.perf_counter()
+    result = solver.solve()
+    duration = time.perf_counter() - start_time
+
+    if result is None:
+        print(f"  [CDCL Core] Status: UNSATISFIABLE")
+        print(f"  [Metrics] Solved in {duration:.6f}s | Decisions: {solver.decisions} | Conflicts: {solver.conflicts}")
+        return "UNSAT"
+    else:
+        print(f"  [CDCL Core] Status: SATISFIABLE")
+        return "SAT"
+
+
+if __name__ == "__main__":
+    # Test 1: Capacity Short-Circuit (Instant result via Tier 1)
+    run_php_systems_solver(10, 9, enable_semantic_bypass=True)
+    print()
+
+    # Test 2: CDCL Deductive Refutation with Symmetry Breaking (Testing Tier 2 & 3)
+    run_php_systems_solver(6, 5, enable_semantic_bypass=False)
+```
+
+
