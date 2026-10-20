@@ -1,1 +1,11 @@
+[package]
+name = "reasoningkit"
+version = "0.1.0"
+edition = "2021"
 
+[dependencies]
+eframe = "0.27"
+
+[[bin]]
+name = "reasoningkit_ui"
+path = "src/main_ui.rs"
