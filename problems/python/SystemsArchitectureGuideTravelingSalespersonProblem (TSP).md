@@ -63,8 +63,23 @@ The compiled representation is solved by the deductive engine:
 *    Two-Watched Literals (2WL): Propagates edge exclusions in $O(1)$ amortized memory operations. Making a choice for Step $t$ immediately eliminates all incompatible destinations for Step $t + 1$.
 *    1UIP Conflict Resolution: If a partial tour dead-ends into a closed sub-loop, conflict-driven clause learning extracts the minimal conflict cut and backjumps non-chronologically.
 
+##    3. Concrete Implementation: TSP Systems Architecture
 
+###    Step 1: Coordinate Space Definition
 
+For $n$ cities and $n$ sequential visit steps, the state space is modeled as an $n \times n$ allocation matrix:
+*    Let Boolean variable c_{i}_t_{j} denote: "City $i$ is visited at step $j$."
+*    Total boolean variables registered: $n^2$.
+```python
+from ReasoningKit import StructuralDSL
+
+dsl = StructuralDSL()
+
+# Discrete Coordinate Registration
+# Maps 2D state space (city_idx, time_step) directly to bit indices
+def get_tour_var(dsl, city_idx, time_step):
+    return dsl.get_var(f"c_{city_idx}_t_{time_step}")
+```
 
 
 
