@@ -54,7 +54,7 @@ The compiler translates the 3D bit-cube coordinates into boolean logic:
 *    Cardinality Encodings: Generates add_exactly_one constraints across the value dimension for each cell, and add_at_most_one across row, column, and block dimensions for each digit.
 *    Clue Injection: Translates board givens into unit clauses ($[X_{r, c, v}]$), locking their truth values at decision level 0.
 
-##    Layer 3: Deductive Execution Core (CDCL / 2WL)
+###    Layer 3: Deductive Execution Core (CDCL / 2WL)
 
 The compiled representation is executed by the deductive solver:
 *    Two-Watched Literals (2WL): Unit propagation cascades automatically simulate human solving techniques (e.g., Naked Singles, Hidden Singles) at $O(1)$ amortized cost per literal elimination.
