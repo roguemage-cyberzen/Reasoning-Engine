@@ -98,7 +98,163 @@ def apply_tour_integrity_rules(dsl, n):
         timeline = [get_tour_var(dsl, c, t) for c in range(n)]
         dsl.add_exactly_one(timeline)
 ```
+###    Step 3: Automorphism / Symmetry Breaking
 
+Because a circular tour can start at any of the $n$ cities and be traversed clockwise or counter-clockwise, an unconstrained solver faces $2n$ identical representations of every candidate route.
+
+We collapse these symmetries using structural pins:
+1.    Cyclic Shift Anchor: Pin City 0 to Step 0 ($n$-fold reduction).
+2.    Directional Reversal Anchor: Require that City at Step 1 has a smaller index than City at Step $n - 1$ (2-fold reduction).
+```python
+def apply_tsp_symmetry_breaking(dsl, n):
+    # 1. Cyclic Shift Anchor: Fix City 0 at Step 0
+    c0_t0 = get_tour_var(dsl, 0, 0)
+    dsl.formula.append([c0_t0])
+
+    # 2. Traversal Direction Anchor: Forbid c_a at step 1 if c_b at step n-1 (for all c_a > c_b)
+    for ca in range(n):
+        for cb in range(ca + 1, n):
+            v_ca_step1 = get_tour_var(dsl, ca, 1)
+            v_cb_last = get_tour_var(dsl, cb, n - 1)
+            dsl.formula.append([-v_ca_step1, -v_cb_last])
+```
+###    Step 4: Metric Boundary FilteringTransitions exceeding the maximum allowed edge threshold $W$ are forbidden across all consecutive steps modulo $n$:
+```python
+def apply_metric_filter(dsl, n, dist_matrix, max_edge_threshold):
+    for u in range(n):
+        for v in range(n):
+            if u == v:
+                continue
+            if dist_matrix[u][v] > max_edge_threshold:
+                for t in range(n):
+                    next_t = (t + 1) % n
+                    var_u_t = get_tour_var(dsl, u, t)
+                    var_v_next = get_tour_var(dsl, v, next_t)
+                    # Binary exclusion: ~(u_t AND v_{t+1})
+                    dsl.formula.append([-var_u_t, -var_v_next])
+```
+##    4. Execution Workflow
+```python
+import time
+from collections import deque
+from ReasoningKit import StructuralDSL, ReasoningCore
+
+def check_topological_connectivity(n, dist_matrix, threshold):
+    """Tier 1: Fast graph degree and component connectivity check."""
+    adj = {i: [] for i in range(n)}
+    for u in range(n):
+        for v in range(n):
+            if u != v and dist_matrix[u][v] <= threshold:
+                adj[u].append(v)
+
+    # Check minimum degree condition (must be >= 2 for cycle participation)
+    for u in range(n):
+        if len(adj[u]) < 2:
+            return False
+
+    # Check global reachability / single connected component
+    visited = set()
+    queue = deque([0])
+    visited.add(0)
+
+    while queue:
+        curr = queue.popleft()
+        for neighbor in adj[curr]:
+            if neighbor not in visited:
+                visited.add(neighbor)
+                queue.append(neighbor)
+
+    return len(visited) == n
+
+def solve_bounded_tsp(n, dist_matrix, threshold, enable_semantic_bypass=True):
+    # Tier 1: Structural Pre-Screening
+    if enable_semantic_bypass and not check_topological_connectivity(n, dist_matrix, threshold):
+        return None
+
+    # Tier 2: Relational Compiler (DSL)
+    dsl = StructuralDSL()
+    apply_tour_integrity_rules(dsl, n)
+    apply_tsp_symmetry_breaking(dsl, n)
+    apply_metric_filter(dsl, n, dist_matrix, threshold)
+
+    # Tier 3: Deductive Execution Core
+    solver = ReasoningCore(dsl.formula, dsl.var_count)
+    assignment = solver.solve()
+
+    if assignment is None:
+        return None
+
+    # Decode sequence of cities
+    tour = [-1] * n
+    for t in range(n):
+        for c in range(n):
+            vid = get_tour_var(dsl, c, t)
+            if assignment.get(vid, False):
+                tour[t] = c
+                break
+    return tour
+
+def optimize_tsp(n, dist_matrix):
+    print(f"--- [TSP] Starting Systems Optimizer ({n} Cities) ---")
+
+    # Extract distinct non-zero edge weights
+    weights = sorted({dist_matrix[i][j] for i in range(n) for j in range(n) if i != j})
+
+    low = 0
+    high = len(weights) - 1
+    optimal_tour = None
+    best_bottleneck = -1
+
+    start_time = time.perf_counter()
+
+    # Binary search over candidate edge thresholds
+    while low <= high:
+        mid = low + (high - low) // 2
+        threshold = weights[mid]
+        print(f"  Testing Bound <= {threshold:2d} ... ", end="", flush=True)
+
+        tour = solve_bounded_tsp(n, dist_matrix, threshold, enable_semantic_bypass=True)
+
+        if tour is not None:
+            print("[FEASIBLE]")
+            optimal_tour = tour
+            best_bottleneck = threshold
+            high = mid - 1
+        else:
+            print("[INFEASIBLE]")
+            low = mid + 1
+
+    duration = time.perf_counter() - start_time
+    print("\n--- Optimization Complete ---")
+
+    if optimal_tour is None:
+        print("No valid Hamiltonian tour exists.")
+        return
+
+    total_cost = sum(
+        dist_matrix[optimal_tour[t]][optimal_tour[(t + 1) % n]]
+        for t in range(n)
+    )
+    route_str = " -> ".join(str(c) for c in optimal_tour) + f" -> {optimal_tour[0]}"
+    print(f"Optimal Minimax Route: {route_str}")
+    print(f"Bottleneck Edge Cost: {best_bottleneck}")
+    print(f"Total Tour Cost:      {total_cost}")
+    print(f"Wall Time Duration:   {duration:.4f}s")
+
+
+if __name__ == "__main__":
+    # 6-City Distance Matrix Benchmark
+    matrix = [
+        [0,  10, 15, 20, 25, 30],
+        [10,  0, 35, 25, 18, 22],
+        [15, 35,  0, 30, 28, 12],
+        [20, 25, 30,  0, 14, 16],
+        [25, 18, 28, 14,  0, 24],
+        [30, 22, 12, 16, 24,  0]
+    ]
+
+    optimize_tsp(6, matrix)
+```
 
 
 |  |  |  |
