@@ -215,5 +215,12 @@ if __name__ == "__main__":
         print("\n--- Solved Output ---")
         for row in solution:
             print(" ".join(str(n) for n in row))
-'''
+```
+###    5. Architectural Comparison: Classical Search vs. Reasoning Engine
 
+|    Feature    |    Recursive Backtracking    |    Reasoning Engine Pipeline    |
+| :---         |     :---:      |          ---: |
+| State Space   | 2D matrix ($9 \times 9$ integers)   | 3D Bit-Cube ($9 \times 9 \times 9 = 729$ boolean indicator bits)   |
+| Heuristics   | Procedural techniques (e.g., Naked Pairs, X-Wing) must be hardcoded manually   | Universal 2WL & 1UIP: Implication graphs naturally discover and propagate high-order deduction strategies   |
+| Failure Recovery   |  Undoes the immediately preceding choice (chronological)  | Non-Chronological Backjump: Identifies the exact conflicting subset of clues/choices and jumps across multiple decision levels   |
+| Clue Pre-Processing   | Iterates over cells at runtime   | Unit Injections: Clues trigger immediate $O(1)$ constraint cascades before branching begins   |
