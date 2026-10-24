@@ -78,3 +78,26 @@ dsl = StructuralDSL()
 def get_color_var(dsl, vertex, color):
     return dsl.get_var(f"node_{vertex}_color_{color}")
 ```
+###    Step 2: Structural Adjacency & Coloring Rules
+
+Every proper vertex coloring must satisfy two conditions:
+*    Node Coverage: Every vertex must receive at least one color.
+*    Edge Exclusivity: Adjacent vertices across an edge cannot share the same color.
+
+```python
+def apply_coloring_rules(dsl, nodes, edges, colors):
+    # Rule 1: Every node must have at least one color assigned
+    for v in nodes:
+        node_choices = [get_color_var(dsl, v, c) for c in range(colors)]
+        dsl.add_at_least_one(node_choices)
+
+    # Rule 2: Connected nodes cannot share the same color
+    for u, v in edges:
+        for c in range(colors):
+            var_u = get_color_var(dsl, u, c)
+            var_v = get_color_var(dsl, v, c)
+            # Binary exclusion clause: ~(u_c AND v_c) === (~u_c OR ~v_c)
+            dsl.formula.append([-var_u, -var_v])
+```
+
+
