@@ -99,5 +99,17 @@ def apply_coloring_rules(dsl, nodes, edges, colors):
             # Binary exclusion clause: ~(u_c AND v_c) === (~u_c OR ~v_c)
             dsl.formula.append([-var_u, -var_v])
 ```
+###    Step 3: Automorphism / Symmetry Breaking
+
+Because colors are interchangeable labels, renaming them produces an isomorphic state. An unguided solver will explore $k!$ identical permutations of any partial coloring.
+
+We collapse this permutation group by pinning the first vertex:
+*    Anchor Pinning: Fix Node 0 to Color 0. This eliminates the $k$-fold symmetry over initial color choices.
+
+```python
+def apply_color_symmetry_breaking(dsl):
+    # Anchor Node 0 to Color 0 (collapses initial S_k permutation orbits)
+    dsl.formula.append([get_color_var(dsl, 0, 0)])
+```
 
 
