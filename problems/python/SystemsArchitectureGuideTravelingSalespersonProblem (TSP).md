@@ -255,11 +255,11 @@ if __name__ == "__main__":
 
     optimize_tsp(6, matrix)
 ```
+##    5. Architectural Comparison: Classical Search vs. Reasoning Engine
 
-
-|  |  |  |
+| Feature | Branch-and-Bound / ILP Solvers | Reasoning Engine Pipeline |
 | :---         |     :---:      |          ---: |
-|  |  |  |
-|  |  |  |
-|  |  |  |
-|  |  |  |
+| Search Space | Continuous LP relaxation with dynamically added cutting planes | Discrete Space-Time Grid: Exact permutation constraints compiled into CNF |
+| Symmetry Management | Evaluates reversed or shifted tours unless branch-and-cut callbacks are defined | Dihedral Orbit Pruning: Origin and direction pins eliminate all $2n$ equivalent cycles in the compiler |
+| Edge Pruning | Arithmetic sum bounding across the entire graph | Metric Bottleneck Clauses: Incompatible transitions are eliminated in $O(1)$ amortized time by 2WL |
+| Dead-End Resolution | Chronological backtracking to earlier relaxation nodes | 1UIP Learning: Isolates sub-path contradictions and immediately learns an asserting cut clause |
