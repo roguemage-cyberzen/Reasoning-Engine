@@ -174,4 +174,11 @@ if __name__ == "__main__":
     # Test 2: 6 Colors on K6 -> Passes Tier 1, compiles via Tier 2, solved by Tier 3
     run_k6_systems_solver(6, enable_semantic_bypass=True)
 ```
+| Feature   | Raw Propositional CDCL / Backtracking   | Reasoning Engine Pipeline   |
+| :---         |     :---:      |          ---: |
+| UNSAT Detection ($k < 6$)   | Explores an exponential resolution proof tree checking all partial assignments.   | Instant Topological Proof: Detects $k < \omega(G)$ in $O(V + E)$ time and terminates before clause generation.    |
+| Symmetry Management   | Oblivious to color labels; evaluates all $k!$ color permutations across failed branches.   | Automorphism Breaking: Injects anchor unit clauses in the DSL compiler to collapse the $S_k$ group upfront.   |
+| Constraint Processing   | Full-clause scanning or repeated adjacency iteration ($O(M)$ per choice).   | Two-Watched Literals (2WL): Binary edge exclusion clauses are monitored with $O(1)$ amortized memory operations.   |
+| Deductive Trail   | Chronological backtracking on branch failure.   | 1UIP Conflict Learning: Learns asserting cut clauses from the implication graph to prune entire subtrees.   |
+
 
