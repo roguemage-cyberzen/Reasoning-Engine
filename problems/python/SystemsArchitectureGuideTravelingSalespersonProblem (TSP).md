@@ -80,7 +80,24 @@ dsl = StructuralDSL()
 def get_tour_var(dsl, city_idx, time_step):
     return dsl.get_var(f"c_{city_idx}_t_{time_step}")
 ```
+###    Step 2: Structural Integrity Rules
 
+Every valid Hamiltonian path must satisfy two fundamental permutation invariants:
+1.    Space Uniqueness: Exactly one city occupies step $t$.
+2.    Time Uniqueness: Each city is visited at exactly one step $t$.
+
+```python
+def apply_tour_integrity_rules(dsl, n):
+    # Rule 1: Every time slot t has exactly one city
+    for t in range(n):
+        slot = [get_tour_var(dsl, c, t) for c in range(n)]
+        dsl.add_exactly_one(slot)
+
+    # Rule 2: Every city c is visited at exactly one time slot
+    for c in range(n):
+        timeline = [get_tour_var(dsl, c, t) for c in range(n)]
+        dsl.add_exactly_one(timeline)
+```
 
 
 
