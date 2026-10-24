@@ -46,7 +46,7 @@ The Reasoning Engine reformulates Sudoku as a 4-Way Dual Orthogonal Exact-Cover 
 Before compiling the board into propositional clauses, the structural layer validates the macro constraints of the provided clues:
 *    The Invariant: No row, column, or $3 \times 3$ subgrid can contain duplicate clue values.
 *    Execution: A single-pass validation check runs across the input clues. If two identical digits share an axis or block, the engine issues an immediate UNSAT certificate in $O(1)$ time, halting before setting up the solver core.
-*
+
 ###    Layer 2: Relational Compiler (Structural DSL)
 
 The compiler translates the 3D bit-cube coordinates into boolean logic:
