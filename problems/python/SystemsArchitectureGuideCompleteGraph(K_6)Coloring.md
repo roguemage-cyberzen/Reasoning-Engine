@@ -111,5 +111,67 @@ def apply_color_symmetry_breaking(dsl):
     # Anchor Node 0 to Color 0 (collapses initial S_k permutation orbits)
     dsl.formula.append([get_color_var(dsl, 0, 0)])
 ```
+##    4. Execution Workflow
+```python
+import time
+from ReasoningKit import SemanticAnalyzer, StructuralDSL, ReasoningCore
 
+def run_k6_systems_solver(colors: int, enable_semantic_bypass=True):
+    print(f"--- [K6] Starting Systems Solver ({colors} Colors) ---")
+
+    # Construct Complete Graph K6: 6 nodes, 15 edges
+    nodes = list(range(6))
+    edges = [(u, v) for i, u in enumerate(nodes) for v in nodes[i + 1:]]
+
+    # Tier 1: Structural Layer (Topological Invariant Scanner)
+    analyzer = SemanticAnalyzer(nodes, edges)
+    clique = analyzer.find_max_clique_estimate()
+    print(f"  [Structural Layer] Invariant Scan: Max Clique ω(G) = {len(clique)} identified.")
+
+    if enable_semantic_bypass and len(clique) > colors:
+        print(f"  [Semantic Result] Instant UNSAT Certificate issued (Topological Proof: ω(G) = {len(clique)} > {colors}).")
+        return "UNSAT (Topological Invariant Proof)"
+
+    # Tier 2: Relational Compiler (Structural DSL)
+    dsl = StructuralDSL()
+    apply_coloring_rules(dsl, nodes, edges, colors)
+    apply_color_symmetry_breaking(dsl)
+
+    print(f"  [DSL Compiler] Generated {len(dsl.formula)} clauses across {dsl.var_count} variables.")
+
+    # Tier 3: Deductive Execution Core (CDCL / 2WL)
+    solver = ReasoningCore(dsl.formula, dsl.var_count)
+
+    start_time = time.perf_counter()
+    result = solver.solve()
+    duration = time.perf_counter() - start_time
+
+    if result is None:
+        print(f"  [CDCL Core] Status: UNSATISFIABLE")
+        print(f"  [Metrics] Solved in {duration:.6f}s | Decisions: {solver.decisions} | Conflicts: {solver.conflicts}")
+        return "UNSAT"
+
+    print(f"  [CDCL Core] Status: SATISFIABLE")
+    print(f"  [Metrics] Solved in {duration:.6f}s | Decisions: {solver.decisions} | Conflicts: {solver.conflicts}")
+
+    # Decode assignment model
+    coloring = {}
+    for v in nodes:
+        for c in range(colors):
+            vid = get_color_var(dsl, v, c)
+            if result.get(vid, False):
+                coloring[v] = c
+                break
+    print(f"  [Solution] Node Color Mapping: {coloring}")
+    return coloring
+
+
+if __name__ == "__main__":
+    # Test 1: 5 Colors on K6 -> Instant Topological UNSAT Proof via Tier 1
+    run_k6_systems_solver(5, enable_semantic_bypass=True)
+    print()
+
+    # Test 2: 6 Colors on K6 -> Passes Tier 1, compiles via Tier 2, solved by Tier 3
+    run_k6_systems_solver(6, enable_semantic_bypass=True)
+```
 
