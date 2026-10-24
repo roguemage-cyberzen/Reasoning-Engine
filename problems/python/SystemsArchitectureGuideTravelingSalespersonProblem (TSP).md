@@ -41,7 +41,27 @@ The Reasoning Engine reformulates TSP as an Exact Space-Time Permutation System 
 $$\neg (\text{City}_u \text{ at } t \land \text{City}_v \text{ at } t + 1) \equiv (\neg X_{u, t} \lor \neg X_{v, (t+1) \bmod n})$$
 *    Dihedral Automorphism Breaking: A Hamiltonian cycle on $n$ vertices has an automorphism group of order $2n$ ($n$ cyclic shifts and 2 path traversal directions). We eliminate these identical search trees before search begins.
 
+##    2. The 3-Tier Layer Cake Architecture
 
+###    Layer 1: Structural Analysis (Topological & Graph Pre-Screening)
+
+Before generating CNF variables, the structural layer analyzes the connectivity and degree properties of the subgraph formed by edges with weight $\le W$:
+*    The Invariant: Every vertex in a valid Hamiltonian cycle must have an undirected degree $\ge 2$. Furthermore, the filtered subgraph must form a single connected component containing all $n$ nodes.
+*    Execution: A quick $O(V + E)$ graph traversal (e.g., Breadth-First Search) verifies connectivity and node degrees. If any node has degree $< 2$ or the graph is disconnected, the engine returns an immediate UNSAT certificate without compiling any clauses.
+
+###    Layer 2: Relational Compiler (Structural DSL)
+
+When the filtered topology passes the structural check:
+*    Coordinate Mapping: Maps each discrete tuple $(\text{city}, \text{step})$ to a unique positive integer literal ID $X_{c, t}$.
+*    Structural Invariants: Enforces that each time slot holds exactly one city (add_exactly_one), and each city is visited at exactly one step (add_exactly_one).
+*    Symmetry Breaking: Eliminates the Dihedral group $D_n$ by anchoring City 0 at Time 0 (cyclic shifts) and requiring the city at Step 1 to have a smaller index than the city at Step $n - 1$ (reversal).
+*    Metric Filter Generation: Emits binary exclusion clauses for all edges exceeding threshold $W$.
+
+###    Layer 3: Deductive Execution Core (CDCL / 2WL)
+
+The compiled representation is solved by the deductive engine:
+*    Two-Watched Literals (2WL): Propagates edge exclusions in $O(1)$ amortized memory operations. Making a choice for Step $t$ immediately eliminates all incompatible destinations for Step $t + 1$.
+*    1UIP Conflict Resolution: If a partial tour dead-ends into a closed sub-loop, conflict-driven clause learning extracts the minimal conflict cut and backjumps non-chronologically.
 
 
 
