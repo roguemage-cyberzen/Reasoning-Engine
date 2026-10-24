@@ -60,4 +60,22 @@ The compiled representation is executed by the deductive solver:
 *    Two-Watched Literals (2WL): Unit propagation cascades automatically simulate human solving techniques (e.g., Naked Singles, Hidden Singles) at $O(1)$ amortized cost per literal elimination.
 *    1UIP Conflict Resolution: When deep speculative choices conflict on hard puzzles, the engine analyzes the implication graph cut, learns an asserting clause, and backjumps non-chronologically.
 
+##    3. Concrete Implementation: Sudoku Systems Architecture
+
+###    Step 1: Coordinate Space Definition
+
+For a $9 \times 9$ board with digits $1..9$, the state space consists of 729 discrete coordinates:
+*    Let Boolean variable cell_{r}_{c}_val_{v} denote: "Row $r$, Column $c$ contains digit $v$."
+*    Total variables allocated: $9 \times 9 \times 9 = 729$.
+
+```python
+from ReasoningKit import StructuralDSL
+
+dsl = StructuralDSL()
+
+# Discrete Coordinate Registration
+# Maps 3D coordinate (row, col, value) directly to bit indices
+def get_cell_var(dsl, r, c, v):
+    return dsl.get_var(f"cell_{r}_{c}_val_{v}")
+```
 
