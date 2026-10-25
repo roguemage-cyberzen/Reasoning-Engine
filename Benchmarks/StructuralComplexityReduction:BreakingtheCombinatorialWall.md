@@ -1,4 +1,4 @@
-# Structural Complexity Reduction: Breaking the Combinatorial Wall
+# The Reasoning Engine: Structural Complexity Reduction Framework for Sudoku
 
-A systems engineering framework and benchmark suite evaluating structural reduction pipelines against raw propositional search.
+A high-performance deductive framework and benchmark suite designed to solve NP-complete and exact-cover problems by prioritizing structural complexity reduction over brute-force combinatorial search.
 
