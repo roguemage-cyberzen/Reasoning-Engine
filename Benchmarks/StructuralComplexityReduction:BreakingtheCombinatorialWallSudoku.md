@@ -598,4 +598,32 @@ Below are the empirical metrics obtained across all benchmark test boards:
 | **Adversarial (17 Clues)** | 105.4729s (26,590,229 btracks)[cite: 7] | 2.4445s (16,820 conf)[cite: 7] | 0.1579s[cite: 7] | 3,221 dec / 1,576 conf[cite: 7] |
 | **Invalid (Clue Collision)** | UNSAT (0.0492s)[cite: 7] | Bypassed[cite: 7] | UNSAT (2.7µs)[cite: 7] | 0 dec / 0 conf[cite: 7] |
 
+#    5. Architectural Breakdown: Why These Results Occur
 
+```mermaid
+flowchart TD
+    subgraph EasyTrap["1. The 'Easy' Negative Phase Trap"]
+        direction TB
+        E1["Human Clues High (38)"] --> E2["No immediate unit clauses in 2WL"]
+        E2 --> E3["Cold CDCL guesses var = False"]
+        E3 --> E4["Negative literals provide zero Latin-Square pruning"]
+        E4 --> E5["Result: 4,674 Learned Conflict Clauses before recovery"]
+    end
+
+    subgraph Crossover["2. The Performance Crossover"]
+        direction TB
+        C1["DFS: Light memory check (~O(9) loop)<br/>CDCL: Heavy 2WL, VSIDS, 1UIP graphs"]
+        C2["Hard (24 Clues):<br/>DFS 879k btracks ≈ CDCL 18k conflicts (~3.4s)"]
+        C3["Adversarial (17 Clues):<br/>DFS hits exponential wall (105.4s / 26.5M btracks)<br/>CDCL 1UIP cuts prune tree (2.44s)"]
+        C1 --> C2 --> C3
+    end
+
+    subgraph REAdvantage["3. The Structural RE Solution"]
+        direction TB
+        R1["Tier 1 Pre-Screening: Invalid grids detected in 2.7µs"]
+        R2["Tier 2 Domain Sifting: Collapses impossible cell candidates upfront"]
+        R3["Medium Grid: Solved with 0 Decisions / 0 Conflicts"]
+        R4["Adversarial: Pruned CNF reduces runtime from 2.44s to 0.1579s"]
+        R1 --> R2 --> R3 --> R4
+    end
+```
