@@ -586,3 +586,8 @@ def run_benchmark():
 if __name__ == "__main__":
     run_benchmark()
 ```
+#    4. Benchmark Results & Comparative Analysis
+
+Below are the empirical metrics obtained across all benchmark test boards:
+
+Difficulty TierDFS (Backtracking)Standard CDCL (Raw)RE Pipeline (Structural)RE Decisions / ConflictsEasy (38 Clues)0.0129s (2,193 btracks)   0.7943s (4,674 conf)   0.0501s   1,161 dec / 624 conf   Medium (30 Clues)0.0002s (9 btracks)   0.0040s (42 conf)   0.0013s   0 dec / 0 conf   Hard (24 Clues)3.4600s (879,359 btracks)   3.4273s (18,012 conf)   0.0601s   1,554 dec / 747 conf   Adversarial (17 Clues)105.4729s (26,590,229 btracks)   2.4445s (16,820 conf)   0.1579s   3,221 dec / 1,576 conf   Invalid (Clue Collision)UNSAT (0.0492s)   Bypassed   UNSAT (2.7µs)   0 dec / 0 conf   5. Architectural Breakdown: Why These Results Occur
