@@ -57,4 +57,29 @@ Executes Conflict-Driven Clause Learning over the canonical residue. Two-Watched
 
 Instead of modeling a 9x9 Sudoku puzzle as an array of integers, the Reasoning Engine formalizes the puzzle as a 4-Way Orthogonal Exact-Cover System:
 
+```mermaid
+flowchart LR
+    subgraph Space["3D Coordinate Space"]
+        direction TB
+        Dim["R × C × V (9 × 9 × 9 = 729 Atoms)<br/>X_{r,c,v} ∈ {0, 1}"]
+    end
+
+    subgraph Partitions["4 Orthogonal Invariants"]
+        direction TB
+        P1["Cell: Exactly 1 digit per (r, c)"]
+        P2["Row: Exactly 1 position per (r, v)"]
+        P3["Column: Exactly 1 position per (c, v)"]
+        P4["Block: Exactly 1 position per (box, v)"]
+    end
+
+    subgraph Engine["Resolution Execution"]
+        direction TB
+        E1["Pre-Screen: Duplicate Givens Check"]
+        E2["Domain Sifter: Cascade Naked Singles"]
+        E3["CDCL: Resolve Residual Disjunctions"]
+    end
+
+    Space --> Partitions
+    Partitions --> Engine
+```
 
