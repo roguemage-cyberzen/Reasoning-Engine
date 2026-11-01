@@ -39,14 +39,22 @@ flowchart TD
     Tier2 -->|"Reduced Clause & Variable Database"| Tier3
     Tier3 --> Out_Model
 ```
-##    The 3 Tiers ExplainedTier 
-###     1: Structural Analysis Layer (Topological Invariants):
+##    The 3 Tiers Explained
+
+###    Tier 1: Structural Analysis Layer (Topological Invariants):
 
 Evaluates macro-level constraints before generating logic clauses. If a structural lower bound proves impossibility (e.g., duplicate clues along an axis, or $m > n$ in capacity constraints), the engine issues an immediate UNSAT certificate without initializing a search tree.
 
 ###    Tier 2: Relational DSL Compiler (Structural Sifting & Orbit Collapsing):
 
-Acts as an intermediate representation compiler. It collapses group automorphisms ($S_k, D_n$) and performs iterative domain reduction (pruning impossible candidate values across row, column, and block partitions) so that only viable variables enter the deductive core.Tier 3: Deductive Execution Core (CDCL / 2WL):
+Acts as an intermediate representation compiler. It collapses group automorphisms ($S_k, D_n$) and performs iterative domain reduction (pruning impossible candidate values across row, column, and block partitions) so that only viable variables enter the deductive core.
+
+###    Tier 3: Deductive Execution Core (CDCL / 2WL):
+
 Executes Conflict-Driven Clause Learning over the canonical residue. Two-Watched Literals (2WL) monitor clause states with $O(1)$ amortized cost, while 1UIP (First Unique Implication Point) conflict analysis learns minimal cut clauses to skip dead-end search spaces.
+
+##    2. Sudoku Architecture: 3D Bit-Cube Exact-Cover Model
+
+Instead of modeling a 9x9 Sudoku puzzle as an array of integers, the Reasoning Engine formalizes the puzzle as a 4-Way Orthogonal Exact-Cover System:
 
 
