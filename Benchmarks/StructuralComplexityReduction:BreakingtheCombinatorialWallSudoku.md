@@ -627,3 +627,16 @@ flowchart TD
         R1 --> R2 --> R3 --> R4
     end
 ```
+1. The Easy vs. Medium Anomaly in Standard CDCL
+*    Medium (0.0040s, 42 conflicts): The spatial layout of clues immediately triggered a unit-propagation cascade at root level. 2WL filled the grid with minimal backtracking.
+*    Easy (0.7943s, 4,674 conflicts): Lacked immediate unit clauses, causing cold CDCL to branch by setting variables to False. Saying "Cell (r, c) is NOT 5" yields no constraint propagation across rows or columns. The solver repeatedly explored negative-assignment subtrees, learning 4,674 clauses before finding the positive path.
+
+2. DFS vs. Standard CDCL on Hard (3.46s vs. 3.42s)
+*    DFS Overhead: Extremely low per-step cost (a simple integer array check). It performed 879,359 backtracks in ~3.46 seconds.
+*    CDCL Overhead: High per-step cost (allocating clause vectors, maintaining watch lists, analyzing 1UIP cuts). Its 18,012 conflicts took nearly the same wall-clock time as DFS's 879,359 checks.
+*    The Breakpoint on Adversarial (17 Clues): As soon as search depth deepens, DFS collapses under combinatorial explosion (105.47s / 26.5 million backtracks). CDCL's 1UIP learning prevents exponential blowup (2.44s).
+
+3. The Structural RE Pipeline Advantage
+*    Instant Refutation: Catches contradictory clues at Tier 1 in 2.7 microseconds.
+*    Deterministic Collapse: On Medium puzzles, Tier 2 domain sifting cascades completely, resolving the puzzle with 0 decisions and 0 conflicts.
+*    Adversarial Acceleration: On minimal 17-clue boards, domain sifting removes over 50% of candidate variables, dropping solve time from 2.4445s to 0.1579s (a 15.4x speedup).
