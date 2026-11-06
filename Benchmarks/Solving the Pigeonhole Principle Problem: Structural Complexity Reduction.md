@@ -1,6 +1,6 @@
 #  Solving the Pigeonhole Principle Problem: Structural Complexity Reduction
 
-The Pigeonhole Principle ($\text{PHP}_n^m$: placing $m$ pigeons into $n$ holes where $m > n$) is the fundamental benchmark of proof complexity. In raw resolution logic, proving $\text{PHP}_n^{n+1}$ is unsatisfiable requires an exponential number of resolution steps ($\Omega(2^{cn})$), as proven by Armin Haken.
+The Pigeonhole Principle ($\text{PHP}_n^m$: placing $m$ pigeons into $n$ holes where $m > n$) is the fundamental benchmark of proof complexity. In raw resolution logic, proving $\text{PHP}_n^{n+1}$ is unsatisfiable requires an exponential number of resolution steps $\Omega(2^{cn})$, as proven by Armin Haken.
 
 Below is the complete engineering walkthrough, architectural flow, and standalone benchmark script demonstrating how the 3-Tier Reasoning Engine solves and refutes PHP instances by prioritizing topological invariants and orbit collapsing over raw resolution search.
 
