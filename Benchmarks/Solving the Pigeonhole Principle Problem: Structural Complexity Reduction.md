@@ -37,5 +37,11 @@ flowchart TD
     Tier2 -->|"Symmetry-Pruned CNF"| Tier3
     Tier3 --> Out_Solve
 ```
-
+2. Complete Benchmark & Solver Suite (benchmark_php.py)
+This standalone Python script implements:
+*    Classical DPLL: Chronological backtracking without clause learning.
+*    Standard CDCL: Raw, blind 2WL propositional resolution encountering the Haken lower bound.
+*    Reasoning Engine Pipeline:
+*    *    Structural / Symmetry Mode: Breaks the $S_m \times S_n$ automorphism group at Tier 2.
+     *    Macro-Invariant Mode: Instant mathematical proof via Tier 1 capacity bounds.
 
