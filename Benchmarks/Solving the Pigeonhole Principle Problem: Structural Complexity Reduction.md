@@ -476,6 +476,8 @@ flowchart TD
 
 3:    Reasoning Engine (Symmetry Pinning): By anchoring Pigeon 0 into Hole 0 at Tier 2, the compiler collapses the initial $n$-way rotational orbits of the symmetric group $S_n$. This reduces derived conflict clauses by over 85%.
 
-4:    Reasoning Engine (Tier 1 Macro Proof): Rather than performing combinatorial resolution search, Tier 1 checks the structural invariant:$$\text{Card}(P) > \text{Card}(H) \implies \text{Inj}(P, H) = \emptyset$$
+4:    Reasoning Engine (Tier 1 Macro Proof): Rather than performing combinatorial resolution search, Tier 1 checks the structural invariant:
+
+$$\text{Card}(P) > \text{Card}(H) \implies \text{Inj}(P, H) = \emptyset$$
 
 It issues a verified UNSAT certificate in under 1 microsecond, completely flattening the exponential wall regardless of the number of pigeons.
