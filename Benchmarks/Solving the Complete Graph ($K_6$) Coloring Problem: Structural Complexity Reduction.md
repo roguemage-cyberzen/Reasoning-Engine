@@ -471,13 +471,13 @@ $$\chi(K_6) \ge \omega(K_6) = 6$$
 
 When testing k=3, k=4, or k=5, the Reasoning Engine's Tier 1 pre-screener recognizes that the budget is below the clique lower bound. It issues a verified UNSAT certificate in ~1.1 microseconds, completely bypassing CNF compilation and resolution search.
 
-2. Standard CDCL and the Factorial Color Orbit Trap (S k)
+2. Standard CDCL and the Factorial Color Orbit Trap ($S_k$)
 When standard CDCL is forced to prove unsatisfiability on raw CNF (e.g., k=5):
 
-*    Any valid partial coloring remains valid if color labels are permuted (the symmetric group S k).
-*    Standard CDCL is unaware of this group automorphism. It repeatedly branches on different color variables, rediscovering the exact same edge contradiction under permuted variable names. This causes conflict counts and runtimes to grow exponentially as k approaches n−1.
+*    Any valid partial coloring remains valid if color labels are permuted (the symmetric group $S_k$).
+*    Standard CDCL is unaware of this group automorphism. It repeatedly branches on different color variables, rediscovering the exact same edge contradiction under permuted variable names. This causes conflict counts and runtimes to grow exponentially as k approaches $n−1$.
 
-3. Canonical Pinning and Zero-Conflict Solutions (k≥6)
+3. Canonical Pinning and Zero-Conflict Solutions ($k \ge 6$)
 When the color budget is satisfiable (k=6 or k=7):
 *    Symmetry Breaking: The Tier 2 compiler pins Node 0 to Color 0. This collapses the initial k-fold choice orbit.
 *    Deterministic Forward March: The CDCL core assigns consecutive colors down the remaining vertices. With the symmetry pin in place, the Two-Watched Literals (2WL) engine forces consistent assignments with 0 conflicts.
