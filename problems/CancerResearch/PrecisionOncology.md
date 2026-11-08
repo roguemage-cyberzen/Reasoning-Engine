@@ -161,3 +161,15 @@ precision_oncology_unified_rs/
                                 #   - Part 4: SMILES, SDF, and PDB Exporters
                                 #   - Part 5: Evolutionary Game-Theoretic Scheduler
                                 #   - Part 6: Native egui Desktop UI & Phase Gauge
+```
+6. Building and RunningPrerequisitesRust Toolchain: Stable 1.75+ (cargo, rustc)Debian / Ubuntu System Libraries:sudo apt-get update
+sudo apt-get install -y libxcb-render0-dev libxcb-shape0-dev libxcb-xfixes0-dev \
+                        libxkbcommon-dev libfontconfig1-dev
+CompilationClone the repository and compile the release binary:git clone https://github.com/roguemage/precision_oncology_unified_rs.git
+cd precision_oncology_unified_rs
+cargo build --release
+ExecutionLaunch the native desktop interface:cargo run --release
+7. Interactive UI GuideThe desktop application presents four tabs:1. Macro Clonal RegimenInput patient somatic NGS panels with variant allele frequencies (VAF).Specify organ reserve tolerance limits (hepatic, cardiac, renal).Solve for minimum-cardinality combination regimens enforcing zero subclonal escape and CYP metabolic compatibility.If continuous therapy is non-viable (UNSAT), use the escalation handshake to transfer targets to Micro Inversion or Evolutionary Scheduling.2. Micro De Novo InversionInspect 3D Euclidean coordinates of active crystallographic clefts (EGFR Met793, MET Pro1158, PI3K Val851).Click Invert Dual-Pocket & Synthesize to generate a satisfying bifunctional scaffold in $< 5\text{ ms}$.View the 2D planar graph canvas with color-coded atoms (Carbons, Nitrogen Donors, Oxygen Acceptors) and rigid aromatic rings (Benzene, Pyridine).Copy the generated Canonical SMILES string or click Export to .SDF / .PDB to save coordinate structures to the exports/ directory for PyMOL / ChimeraX inspection.3. Evolutionary SchedulingConfigure treatment cycles ($T = 2\text{--}5$) and cumulative multi-cycle toxicity budgets.Solve the temporal scheduling game to generate pulsed cycle rotations (e.g., Cycle 1: Osimertinib $\to$ Cycle 2: Capmatinib $\to$ Cycle 3: Alpelisib).Trace subclone viability trajectories across treatment horizons and inspect triggered collateral sensitivity traps.4. Spectral Phase GaugeReal-time analytical dashboard displaying formula metrics across all active solver modules.Color-coded spectral density bar showing current $\alpha$ relative to the canonical phase boundary $\alpha_c \approx 4.267$.Telemetry readouts for entropy reduction exponent $s$ and search-space compression ratios.8. LicenseThis project is licensed under the Apache 2.0 License.
+
+
+
