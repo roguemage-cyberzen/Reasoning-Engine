@@ -466,9 +466,7 @@ flowchart TD
 1. The Power of Topological Invariant Short-Circuiting (Tier 1)
 For complete graphs, computing the maximum clique size 
 ω(G) takes O(V+E) time. Because the chromatic number cannot be less than the clique number:
-
-χ(K_6)≥ω(K 6)=6
-
+$$\chi(K_6) \ge \omega(K_6) = 6$$
 When testing k=3, k=4, or k=5, the Reasoning Engine's Tier 1 pre-screener recognizes that the budget is below the clique lower bound. It issues a verified UNSAT certificate in ~1.1 microseconds, completely bypassing CNF compilation and resolution search.
 
 2. Standard CDCL and the Factorial Color Orbit Trap (S k)
