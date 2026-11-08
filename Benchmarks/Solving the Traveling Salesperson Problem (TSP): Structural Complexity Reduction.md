@@ -548,7 +548,7 @@ if __name__ == "__main__":
 Running the benchmark outputs the following comparative performance table:
 
 ##    4. Architectural Breakdown: Why These Results Occur
-```python
+```mermaid
 flowchart TD
     subgraph DFS["1. Classical DFS Permutation Search"]
         direction TB
