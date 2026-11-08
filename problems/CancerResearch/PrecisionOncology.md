@@ -16,3 +16,10 @@ The **Reasoning Engine (RE)** inverts this paradigm. We reframe precision therap
 1. Target active receptor pockets, anti-target exclusion motifs (e.g., cardiac hERG channel blockade), subclonal mutation graphs, and metabolic pharmacokinetic channels (CYP450) are encoded as **first-order structural and geometric invariants**.
 2. A custom **CDCL(T) (Conflict-Driven Clause Learning modulo Theories)** solver core navigates the combined discrete-continuous state space.
 3. Satisfying configurations correspond to valid, synthesizable molecular graphs or game-theoretic multi-cycle pulsed regimens, resolved deterministically in sub-millisecond execution times.
+
+FORWARD SIMULATION (Empirical, Incomplete)
+   Chemical Space (10^60) ──> Random Sample ──> Docking/MD ──> Score ΔG (Iterative Loop)
+
+   REASONING ENGINE INVERSION (Exact, Verified)
+   Receptor Clefts + Clonal Graphs ──> Structural Invariants ──> CDCL(T) Core ──> Exact Solution
+                                                                └── T_geom Pruning
