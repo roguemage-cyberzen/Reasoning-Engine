@@ -55,11 +55,11 @@ flowchart TD
     E --> G
     F --> G
 
-    %% Styling Classes
-    classDef panel fill:#1e1e24,stroke:#4a4a5a,stroke-width:1px,color:#e0e0e0;
-    classDef decision fill:#2d1b2e,stroke:#c44569,stroke-width:1px,color:#f8a5c2;
-    classDef success fill:#162b24,stroke:#2ed573,stroke-width:1px,color:#7bed9f;
-    classDef gauge fill:#1a2530,stroke:#1e90ff,stroke-width:1px,color:#70a1ff;
+    %% Styling Classes with explicit min-width
+    classDef panel fill:#1e1e24,stroke:#4a4a5a,stroke-width:1px,color:#e0e0e0,min-width:340px;
+    classDef decision fill:#2d1b2e,stroke:#c44569,stroke-width:1px,color:#f8a5c2,min-width:260px;
+    classDef success fill:#162b24,stroke:#2ed573,stroke-width:1px,color:#7bed9f,min-width:260px;
+    classDef gauge fill:#1a2530,stroke:#1e90ff,stroke-width:1px,color:#70a1ff,min-width:340px;
 
     class A,B,E,F panel;
     class C success;
