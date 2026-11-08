@@ -23,3 +23,46 @@ FORWARD SIMULATION (Empirical, Incomplete)
    REASONING ENGINE INVERSION (Exact, Verified)
    Receptor Clefts + Clonal Graphs ──> Structural Invariants ──> CDCL(T) Core ──> Exact Solution
                                                                 └── T_geom Pruning
+## 2. Core Architectural Architecture
+
+The pipeline consists of three interlocked computational layers governed by an empirical spectral phase-transition complexity monitor:
+
+```mermaid
+flowchart TD
+    %% Node Definitions
+    A["<b>PATIENT SOMATIC VARIANT PANEL</b><br/><i>(NGS VCF: Truncal Drivers & Subclonal VAF %)</i>"]
+
+    B["<b>1. MACRO: CLONAL ZERO-ESCAPE REGIMEN SOLVER</b><br/>• Hypergraph Minimum Hitting Set over Subclonal Architectures<br/>• Multi-Organ Toxic Reserve Accumulators (Hepatic, Cardiac, Renal)<br/>• Metabolic CYP450 Mutual Exclusion Invariants"]
+
+    C["<b>Standard-of-Care Cocktail</b><br/><i>Ranked by Burden Vector</i>"]
+
+    D["<b>AUTOMATED ESCALATION HANDSHAKE</b><br/><i>Transfer Blocking Kinase Targets</i>"]
+
+    E["<b>2. MICRO: DE NOVO MOLECULAR INVERSION ENGINE (CDCL(T))</b><br/>• SAT Boolean Backbone: Vertex Fragment Assignment + Edge Topologies<br/>• T_geom Continuous Theory Solver: All-Pairs Shortest Path Distance Geometry Bounds<br/>• Chemical Valence Bounds (O &le; 2, N &le; 3, C &le; 4) & Aromatic Rigidity<br/>• Anti-Target Motifs: Direct Pruning of Lethal Pharmacophore Graphs<br/>• Cheminformatics Pipeline: SMILES Synthesizer, 3D Embedding, MDL .SDF / .PDB Export"]
+
+    F["<b>3. TEMPORAL: EVOLUTIONARY GAME-THEORETIC SCHEDULER</b><br/>• Finite-Horizon Temporal Scheduling Game (t &isin; {1, ..., T})<br/>• Dynamic Subclonal Steering via Collateral Sensitivity Implication Chains<br/>• Clonal Rebound Clamping (No subclone active &gt; 2 consecutive intervals)<br/>• Cumulative Multi-Cycle Organ Rest Invariants & Washout Windows"]
+
+    G["<b>4. SPECTRAL COMPLEXITY & PHASE-TRANSITION DENSITY GAUGES</b><br/>• Real-time Clause Density Monitoring: &alpha; = m / n relative to &alpha;_c = 4.267<br/>• Entropy Reduction Metric: s = n - log<sub>2</sub>(Search Steps)<br/>• Informational State Collapse Metric: 2<sup>n-s</sup>"]
+
+    %% Flow Connections
+    A --> B
+    B -->|Satisfiable Regimen| C
+    B -->|UNSAT / Clash / Reserve Trap| D
+    D --> E
+    D -.->|Alternative Horizon Path| F
+    F -.->|Escalate Blocked Kinase Pockets| E
+    B --> G
+    E --> G
+    F --> G
+
+    %% Styling Classes
+    classDef panel fill:#1e1e24,stroke:#4a4a5a,stroke-width:1px,color:#e0e0e0;
+    classDef decision fill:#2d1b2e,stroke:#c44569,stroke-width:1px,color:#f8a5c2;
+    classDef success fill:#162b24,stroke:#2ed573,stroke-width:1px,color:#7bed9f;
+    classDef gauge fill:#1a2530,stroke:#1e90ff,stroke-width:1px,color:#70a1ff;
+
+    class A,B,E,F panel;
+    class C success;
+    class D decision;
+    class G gauge;
+```
