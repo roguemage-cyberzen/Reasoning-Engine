@@ -1,6 +1,6 @@
 # Reasoning Engine: Unified Structural Complexity & Molecular Inversion Pipeline
 
-#   WARNING This should be used for research purposes only. The goal of research is to demo the Reasoning Engine only and not to give any medical advice.  
+#   WARNING This should be used for research purposes only. The goal of this research is to demo the Reasoning Engine only and not to give medical advice.  
 
 ### Inverting Precision Oncology via Theory-Propagated Satisfiability (CDCL(T)) and Structural Phase-Transition Gauges
 
