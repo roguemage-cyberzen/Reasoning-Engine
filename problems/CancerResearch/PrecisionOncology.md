@@ -1,4 +1,7 @@
 # Reasoning Engine: Unified Structural Complexity & Molecular Inversion Pipeline
+
+#   WARNING This should be used for research purposes only. The goal of research is to demo the Reasoning Engine only and not to give any medical advice.  
+
 ### Inverting Precision Oncology via Theory-Propagated Satisfiability (CDCL(T)) and Structural Phase-Transition Gauges
 
 [![Language: Rust](https://img.shields.io/badge/Language-Rust_2021-orange.svg)](https://www.rust-lang.org/)
