@@ -1,7 +1,0 @@
-[package]
-name = "precision_oncology_unified_rs"
-version = "0.1.0"
-edition = "2021"
-
-[dependencies]
-eframe = "0.27"
